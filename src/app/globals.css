@@ -1,11 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: rgb(178, 176, 232);
+  --foreground: rgb(122, 133, 193);
 }
 
 @theme inline {
+  --color-primary: rgb(178, 176, 232);
+  --color-secondary: rgb(122, 133, 193);
+  --color-button-primary: rgb(26, 42, 128);
+  --color-button-secondary: rgb(59, 56, 160);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -17,8 +21,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: rgb(38, 36, 50);
+    --foreground: rgb(122, 133, 193);
   }
 }
 
