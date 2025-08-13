@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Ubuntu, Pacifico,Dancing_Script } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -10,6 +10,23 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const ubuntu = Ubuntu ({
+  weight: "400",
+  variable: "--font-ubuntu",
+  subsets:["latin"],
+});
+
+const pacifico= Pacifico ({
+  weight:"400",
+  variable: "--font-pacifico",
+  subsets: ["latin"],
+});
+
+const dancingScript = Dancing_Script ({
+  variable:"--font-dancing-script",
+  subsets:["latin"],
 });
 
 export const metadata: Metadata = {
@@ -23,12 +40,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
 
-  //test commit 
-  //test commit kedua
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`
+          ${geistSans.variable} 
+          ${geistMono.variable} 
+          ${ubuntu.variable} 
+          ${pacifico.variable} 
+          ${dancingScript.variable} antialiased`}
       >
         {children}
       </body>
