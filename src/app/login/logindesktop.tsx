@@ -22,7 +22,7 @@ const LoginDesktop = () => {
                 className="absolute inset-0 h-screen bg-cover bg-center pointer-events-none z-0 opacity-20" 
                 style={{backgroundImage:`url(${bgimg.src})`}}/>
             <div className="flex-col h-screen flex w-3/4 z-10 p-10 justify-center">
-                <Image src={paperplane} alt="paper plane for freepik" width={200} height={200} className="w-lg h-max" />
+                <Image src={paperplane} alt="paper plane for freepik" width={200} height={200} className="w-lg h-max" priority/>
                 <h1 className="text-4xl font-black text-button-primary/80 font-dancing-script">Nyatet Duit</h1>
             </div>
             <form className="
