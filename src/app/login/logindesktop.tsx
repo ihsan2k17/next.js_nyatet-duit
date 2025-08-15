@@ -7,6 +7,7 @@ const LoginDesktop = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [rememberme, setRememberme] = useState(false)
+    const [register, setRegister] = useState(false)
 
     const handleLogin = async () => {
         console.log("Login kuy")
@@ -26,10 +27,8 @@ const LoginDesktop = () => {
                 <h1 className="text-4xl font-black text-button-primary/80 font-dancing-script">Nyatet Duit</h1>
             </div>
             <form className="
-                flex 
-                flex-col 
-                z-10 
-                gap-4 w-1/4 pt-8 pb-8 pr-4 pl-4 bg-secondary/30 rounded-3xl border-2 border-button-primary">
+                flex flex-col z-10 gap-4 
+                w-1/4 pt-8 pb-8 pr-4 pl-4 bg-secondary/30 rounded-3xl border-2 border-button-primary">
                 <h1 className="text-button-primary text-2xl text-center font-black font-ubuntu">Login Uhuy</h1>
                 <div className="flex flex-col items-center gap-6 p-2">
                     <div className="flex flex-row w-full px-3 py-2 items-center rounded-2xl bg-secondary">
