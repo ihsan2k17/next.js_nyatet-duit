@@ -2,9 +2,9 @@ import { SetStateAction, useState } from "react";
 import Image from "next/image"
 import bgimg from "../../../public/bg.jpg";
 import paperplane from "../../../public/paper-plane-freepik.png";
-import LoginModal from "@/component/login/modalLoginMobile";
+import LoginModal from "@/components/login/modalLoginMobile";
 import { MdKeyboardBackspace } from "react-icons/md";
-import RegisModal from "@/component/register/modalRegisterMobile";
+import RegisModal from "@/components/register/modalRegisterMobile";
 
 const LoginMobile = () => {
     const [name, setName] = useState('');
