@@ -1,6 +1,10 @@
 import Image from "next/image"
 import paperplane from "../../../public/paper-plane-freepik.png"
-const NavbarStarted = () => {
+
+interface INavbar  {
+    handleClick: () => void
+}
+const NavbarStarted = ({handleClick}: INavbar) => {
 
     return (
         <nav className="absolute flex flex-row w-full top-0">
@@ -8,11 +12,11 @@ const NavbarStarted = () => {
                 <div className="flex-col h-20 max-w-[16%] ">
                     <Image src={paperplane} alt="paper plane for freepik" width={200} height={200} className="w-lg h-max" priority/>
                 </div> 
-                <div className="flex p-4 max-h-15 bg-button-primary hover:bg-primary text-white hover:text-button-primary rounded-2xl">
-                    <button className=" font-black font-ubuntu text-xl ">
+                    <button className="flex p-4 max-h-15 bg-button-primary hover:bg-primary text-white hover:text-button-primary rounded-2xl font-black font-ubuntu text-xl" onClick={handleClick}>
                         Get Started
                     </button>
-                </div>
+                {/* <div className="flex p-4 max-h-15 bg-button-primary hover:bg-primary text-white hover:text-button-primary rounded-2xl">
+                </div> */}
             </div>
         </nav>
     )

@@ -1,15 +1,21 @@
+"use client"
 import PaperPlane from "@/components/animations/paperplanestarted";
 import bgimg from "../../public/bg.jpg";
 import Image from "next/image";
 import paperplane from "../../public/paper-plane-freepik.png";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 const StartedMobile = () => {
+    const router = useRouter()
     const [datenow, setDateNow] = useState("")
         useEffect(() => {
             const tgl = new Date()
             setDateNow(tgl.getFullYear().toString())
         },[])
+    const handleClick = () => {
+        router.push("/login")
+    }
     return (
         <div className={`flex relative h-screen max-w-[768px] overflow-hidden 
             bg-gradient-to-b from-white to-primary items-center justify-center`}>
@@ -38,7 +44,7 @@ const StartedMobile = () => {
                         </label>
                     </div>
                     <div className="flex p-4 px-20 max-h-15 bg-button-primary text-white rounded-3xl">
-                        <button className=" font-black font-ubuntu text-xl ">
+                        <button className=" font-black font-ubuntu text-xl " onClick={handleClick}>
                             Get Started
                         </button>
                     </div>

@@ -1,15 +1,21 @@
+"use client"
 import PaperPlane from "@/components/animations/paperplanestarted"
 import bgimg from "../../public/bg.jpg";
 import NavbarStarted from "@/components/bar/navbarstarted";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 
 const StartedDesktop = () => {
+    const router = useRouter()
     const [datenow, setDateNow] = useState("")
     useEffect(() => {
         const tgl = new Date()
         setDateNow(tgl.getFullYear().toString())
     },[])
+    const handleClick = () => {
+        router.push("/login")
+    }
     return (
         <div className={`
             flex
@@ -18,7 +24,7 @@ const StartedDesktop = () => {
             w-full overflow-hidden
             bg-gradient-to-b from-white to-primary items-center
         `}>
-            <NavbarStarted />
+            <NavbarStarted handleClick={handleClick}/>
             <div 
                 className="absolute inset-0 h-screen bg-cover bg-center pointer-events-none z-0 opacity-20" 
                 style={{backgroundImage:`url(${bgimg.src})`}}/>
