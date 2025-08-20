@@ -4,7 +4,7 @@ import bgimg from "../../public/bg.jpg";
 import Image from "next/image";
 import paperplane from "../../public/paper-plane-freepik.png";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const StartedMobile = () => {
     const router = useRouter()
@@ -40,7 +40,9 @@ const StartedMobile = () => {
                     </div>
                     <div className="flex self-center max-w-[70%] p-4 rounded-lg">
                         <label className="text-center font-ubuntu text-md text-button-primary">
-                            Catet Duit nya Woy, Katanya mau kaya, di catet Pengeluaran sama Pemasukannya anjayyy
+                            Catet Duit nya Woy, Katanya mau kaya, di catet Pengeluaran sama Pemasukannya anjayyy, 
+                            ini cuma aplikasi pencatatan uang brokkk, di dalem nya ada menu menu buat nyatet duit lu,
+                            dari investasi sampe tabungan
                         </label>
                     </div>
                     <div className="flex p-4 px-20 max-h-15 bg-button-primary text-white rounded-3xl">

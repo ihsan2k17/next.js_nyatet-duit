@@ -39,10 +39,10 @@ const StartedDesktop = () => {
             <div className="flex flex-col absolute h-screen w-[40%] items-start justify-center gap-2">
                 <div className="flex flex-col w-full p-6 gap-5">
                     <label className="font-ubuntu font-black text-9xl text-button-primary">NYATET DUIT</label>
-                    <label className="text-xl font-ubuntu font-semibold text-button-secondary">Catetin duit nya brokk!!!, 
-                        biar Pemasukan, Pengeluaran, sama investasi
-                        nya keliatan perbulan nya keliatan. Bisa juga buat jadi Acuan planning bulan depan kalian
-                        ataupun tahun depan, anjayyyyy</label>
+                    <label className="text-xl font-ubuntu font-semibold text-button-secondary">Catet Duit nya Woy, 
+                            Katanya mau kaya, di catet Pengeluaran sama Pemasukannya anjayyy, 
+                            ini cuma aplikasi pencatatan uang brokkk, di dalem nya ada menu menu buat nyatet duit lu,
+                            dari investasi sampe tabungan</label>
                 </div>
             </div>
             <div className="absolute flex w-full bottom-0 items-end justify-center">

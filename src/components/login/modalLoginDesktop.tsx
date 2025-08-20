@@ -8,9 +8,10 @@ interface ILoginDesktop {
     password:string,
     setPassword: Dispatch<SetStateAction<string>>,
     rememberme: boolean,
-    setRememberme: Dispatch<SetStateAction<boolean>>
+    setRememberme: Dispatch<SetStateAction<boolean>>,
+    openRegis: () => void
 }
-const ModalLoginDesktop = ({handleLogin, username, setUsername,password, setPassword, rememberme, setRememberme}:ILoginDesktop) => {
+const ModalLoginDesktop = ({handleLogin, username, setUsername,password, setPassword, rememberme, setRememberme, openRegis}:ILoginDesktop) => {
 
     return (
         <form className="
@@ -64,7 +65,9 @@ const ModalLoginDesktop = ({handleLogin, username, setUsername,password, setPass
                 </div>
                 <div className="flex gap-2 lg:flex-row flex-col text-button-secondary ">
                     <label className="text-sm">Don't Have an Acoount ?</label>
-                    <label className="text-sm font-black">register</label>
+                    <label 
+                        onClick={openRegis}
+                        className="text-sm font-black">register</label>
                 </div>
             </div>
         </form>
