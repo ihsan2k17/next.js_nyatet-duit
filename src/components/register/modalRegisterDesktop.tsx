@@ -4,6 +4,7 @@ import { SiMaildotru } from 'react-icons/si'
 
 interface Iregis {
     closeRegis: () => void,
+    handleRegis: () => void,
     username: string,
     setUsername: Dispatch<SetStateAction<string>>,
     password:string,
@@ -16,13 +17,11 @@ interface Iregis {
 
 const ModalRegisterDesktop = ({
     closeRegis, 
+    handleRegis,
     username, setUsername, 
     password, setPassword, 
     name, setName, 
     email,setEmail}:Iregis) => {
-    const Regis = async () => {
-        console.log('Regis cuyyyy')
-    }
     return (
         <form className='flex flex-col z-10 gap-4 
             w-1/4 pt-8 pb-8 pr-4 pl-4 bg-secondary/30 rounded-3xl border-2 border-button-primary'>
@@ -67,7 +66,7 @@ const ModalRegisterDesktop = ({
                     </div>
                     <div className='flex justify-center'>
                         <button 
-                            onClick={Regis}
+                            onClick={handleRegis}
                             className='bg-button-primary text-white px-16 py-2 rounded-2xl font-bold text-center'>
                                 Register
                         </button>

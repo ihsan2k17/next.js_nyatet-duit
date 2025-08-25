@@ -1,4 +1,5 @@
-import LoginPageClient from './pageclient';
+import LoginPageClient from "./pageclient"
+
 
 
 export const metadata = {

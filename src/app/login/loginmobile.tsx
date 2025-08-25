@@ -1,4 +1,4 @@
-import { SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import Image from "next/image"
 import bgimg from "../../../public/bg.jpg";
 import paperplane from "../../../public/paper-plane-freepik.png";
@@ -6,23 +6,39 @@ import LoginModal from "@/components/login/modalLoginMobile";
 import { MdKeyboardBackspace } from "react-icons/md";
 import RegisModal from "@/components/register/modalRegisterMobile";
 
-const LoginMobile = () => {
-    const [name, setName] = useState('');
-    const [username, setUsername] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [rememberme, setRememberme] = useState(false)
-    const [modalLogin, setModalLogin] = useState(false)
-    const [modalRegister, setModalRegister] = useState(false)
+interface ILoginMobile {
+    handleLogin: () => void,
+    handleRegister: () => void,
+    handleNavigation: () => void,
+    modalLogin: boolean,
+    setModalLogin: Dispatch<SetStateAction<boolean>>,
+    modalRegister: boolean,
+    setModalRegister: Dispatch<SetStateAction<boolean>>,
+    name:string,
+    setName: Dispatch<SetStateAction<string>>,
+    email:string,
+    setEmail: Dispatch<SetStateAction<string>>,
+    username: string,
+    setUsername: Dispatch<SetStateAction<string>>,
+    password:string,
+    setPassword: Dispatch<SetStateAction<string>>,
+    rememberMe: boolean,
+    setRememberMe: Dispatch<SetStateAction<boolean>>,
+    alertLogin: boolean, setAlertLogin: Dispatch<SetStateAction<boolean>>,
+    alertMessage: string, 
+}
 
-    const handleLogin = async () => {
-        console.log("Login kuy")
-    };
-
-    const handleRegister = async () => {
-        console.log("Daftar Gaesss")
-    }
-
+const LoginMobile = ({
+    handleLogin, handleRegister, handleNavigation,
+    modalLogin, setModalLogin,
+    modalRegister, setModalRegister,
+    name, setName, 
+    username, setUsername,
+    email, setEmail, 
+    password, setPassword,
+    rememberMe, setRememberMe, 
+    alertLogin, setAlertLogin, alertMessage}: ILoginMobile) => {
+    
     return (
         <div className="relative
             h-screen 
@@ -71,7 +87,7 @@ const LoginMobile = () => {
             )}
             {(!modalLogin && !modalRegister) && (
                 <button
-                    onClick={() => setModalLogin(true)}
+                    onClick={() => setModalLogin(true) }
                     className="px-30 py-2 bg-button-primary text-white rounded-full mb-4"
                 > Login
                 </button>
@@ -83,12 +99,27 @@ const LoginMobile = () => {
                 > register
                 </button>
             )}
+            {alertLogin && (
+                <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
+                    <div className="bg-white p-6 rounded shadow-md max-w-sm text-center">
+                    <p className="text-lg font-medium">{alertMessage}</p>
+                    <button
+                        onClick={() => {
+                            setAlertLogin(false)
+                            handleNavigation()}}
+                        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                    >
+                        OK
+                    </button>
+                    </div>
+                </div>
+            )}
             <LoginModal 
                 ModalLogin={modalLogin} 
                 handleLogin={handleLogin} 
                 username={username} setUsername={setUsername}
                 password={password} setPassword={setPassword} 
-                rememberme={rememberme} setRememberme={setRememberme}/>
+                rememberme={rememberMe} setRememberme={setRememberMe}/>
             <RegisModal 
                 regisLogin={modalRegister} 
                 handleRegister={handleRegister}

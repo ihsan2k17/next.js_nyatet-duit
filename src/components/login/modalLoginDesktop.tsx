@@ -21,7 +21,7 @@ const ModalLoginDesktop = ({handleLogin, username, setUsername,password, setPass
             <div className="flex flex-col items-center gap-6 p-2">
                 <div className="flex flex-row w-full px-3 py-2 items-center rounded-2xl bg-secondary">
                     <input
-                    className="w-full pr-2 outline-none text-white/90"
+                    className="w-full bg-secondary pr-3 outline-none text-white/90"
                     value={username}
                     onChange={e => setUsername(e.target.value)}
                     placeholder="username"
@@ -30,7 +30,7 @@ const ModalLoginDesktop = ({handleLogin, username, setUsername,password, setPass
                 </div>
                 <div className="flex flex-row w-full px-3 py-2 items-center rounded-2xl bg-secondary">
                     <input
-                    className="w-full pr-2 outline-none text-white/90"
+                    className="w-full bg-secondary pr-3 outline-none text-white/90"
                     type="password"
                     value={password}
                     onChange={e => setPassword(e.target.value)}
@@ -64,7 +64,7 @@ const ModalLoginDesktop = ({handleLogin, username, setUsername,password, setPass
                     </button>
                 </div>
                 <div className="flex gap-2 lg:flex-row flex-col text-button-secondary ">
-                    <label className="text-sm">Don't Have an Acoount ?</label>
+                    <label className="text-sm">{"Don't Have an Acoount ?"}</label>
                     <label 
                         onClick={openRegis}
                         className="text-sm font-black">register</label>

@@ -12,7 +12,7 @@ interface IRegisModal {
     username: string,
     setUsername: Dispatch<SetStateAction<string>>,
     password:string,
-    setPassword: Dispatch<SetStateAction<string>>,
+    setPassword: Dispatch<SetStateAction<string>>
 }
 const RegisModal = ({regisLogin, handleRegister,name, setName, username,email,setEmail, setUsername,password,setPassword}: IRegisModal) => {
     if(!regisLogin) return null;
