@@ -8,6 +8,7 @@ import ModalLoginDesktop from "@/components/login/modalLoginDesktop";
 interface ILoginDesktop {
     handleLogin: () => void,
     handleLoginGoogle : () => void,
+    handleRegisGoogle: () => void,
     handleRegister: () => void,
     username: string, setUsername: Dispatch<SetStateAction<string>>,
     password: string, setPassword: Dispatch<SetStateAction<string>>,
@@ -16,11 +17,13 @@ interface ILoginDesktop {
     rememberme: boolean, setRememberme: Dispatch<SetStateAction<boolean>>,
     modalRegister: boolean, setModalRegister: Dispatch<SetStateAction<boolean>>,
     alertLogin: boolean, setAlertLogin: Dispatch<SetStateAction<boolean>>,
-    alertMessage: string, 
+    alertErrorLogin: boolean, setAlertErrorLogin: Dispatch<SetStateAction<boolean>>,
+    alertRegis:boolean, setAlertRegis: Dispatch<SetStateAction<boolean>>,
+    alertMessage: string, alertErrorMessage: string
     handleNavigation: () => void
 }
 const LoginDesktop = ({
-    handleLogin, handleLoginGoogle, handleRegister, 
+    handleLogin, handleLoginGoogle, handleRegisGoogle,handleRegister, 
     username, setUsername, 
     password, setPassword, 
     name, setName,
@@ -28,7 +31,9 @@ const LoginDesktop = ({
     rememberme, setRememberme,
     modalRegister, setModalRegister,
     alertLogin, setAlertLogin,
-    alertMessage, 
+    alertErrorLogin, setAlertErrorLogin,
+    alertRegis, setAlertRegis,
+    alertMessage, alertErrorMessage,
     handleNavigation}: ILoginDesktop) => {
 
     return (
@@ -54,6 +59,7 @@ const LoginDesktop = ({
                 (<ModalRegisterDesktop 
                 closeRegis={() => {setModalRegister(false)}}
                 handleRegis={handleRegister}
+                handleRegisGoogle={handleRegisGoogle}
                 username={username} setUsername={setUsername}
                 password={password} setPassword={setPassword}
                 name={name} setName={setName}
@@ -66,6 +72,35 @@ const LoginDesktop = ({
                         onClick={() => {
                             setAlertLogin(false)
                             handleNavigation()}}
+                        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                    >
+                        OK
+                    </button>
+                    </div>
+                </div>
+            )}
+            {alertErrorLogin && (
+                <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
+                    <div className="bg-white p-6 rounded shadow-md max-w-sm text-center">
+                    <p className="text-lg font-medium">{alertErrorMessage}</p>
+                    <button
+                        onClick={() => {setAlertErrorLogin(false)}}
+                        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                    >
+                        OK
+                    </button>
+                    </div>
+                </div>
+            )}
+            {alertRegis && (
+                <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
+                    <div className="bg-white p-6 rounded shadow-md max-w-sm text-center">
+                    <p className="text-lg font-medium">{alertMessage}</p>
+                    <button
+                        onClick={() => {
+                            setAlertRegis(false)
+                            setModalRegister(false)
+                            }}
                         className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
                     >
                         OK

@@ -35,7 +35,7 @@ const LoginModal = ({ModalLogin, handleLogin, handleGoogleLogin, username, setUs
     return (
         <div className="relative inset-0 flex w-full pt-10 pb-4">
             <form className="flex flex-col gap-4 w-full pt-8 pb-8 rounded-3xl z-10 relative">
-                    <h1 className="text-button-primary text-sm pl-[1%] text-start font-black font-ubuntu">Login Uhuy</h1>
+                    <h1 className="text-button-primary text-sm pl-[1%] text-start font-black font-ubuntu">Sign In Uhuy</h1>
                 <div className="flex flex-col items-center gap-6">
                     <div className="flex flex-row w-full px-3 py-2 items-center rounded-xl bg-secondary">
                         <input
@@ -76,24 +76,17 @@ const LoginModal = ({ModalLogin, handleLogin, handleGoogleLogin, username, setUs
                         <button
                             type="button"
                             onClick={handleLogin}
-                            className="w-[28%] py-2 rounded-2xl bg-button-primary text-white/80 font-bold"
+                            className="w-[32%] py-2 rounded-2xl bg-button-primary text-white/80 font-bold"
                         >
-                            Login
+                            Sign In
                         </button>
                         <button
                             type="button"
-                            onClick={() => handleGoogleLogin()}
-                            className="w-[68%] py-2 rounded-2xl bg-button-primary text-white/80 font-bold"
+                            onClick={handleGoogleLogin}
+                            className="w-[64%] py-2 rounded-2xl bg-button-primary text-white/80 font-bold"
                         >
                             Sign in With Google
                         </button>
-                        {/* <GoogleLogin 
-                            onSuccess={(credendtialsResponse) => {
-                                console.log(credendtialsResponse)
-                                const decod = jwt.decode(credendtialsResponse.credential ?? "")
-                                console.log("decode: ", decod)
-                            }}
-                        /> */}
                     </div>
                 </div>
             </form>

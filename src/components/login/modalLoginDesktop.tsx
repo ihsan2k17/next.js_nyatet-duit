@@ -22,7 +22,7 @@ const ModalLoginDesktop = ({handleLogin, handleLoginGoogle, username, setUsernam
         <form className="
             flex flex-col z-10 gap-4 
             w-1/4 pt-8 pb-8 pr-4 pl-4 bg-secondary/30 rounded-3xl border-2 border-button-primary">
-            <h1 className="text-button-primary text-2xl text-center font-black font-ubuntu">Login Uhuy</h1>
+            <h1 className="text-button-primary text-2xl text-center font-black font-ubuntu">Sign Uhuy</h1>
             <div className="flex flex-col items-center gap-6 p-2">
                 <div className="flex flex-row w-full px-3 py-2 items-center rounded-2xl bg-secondary">
                     <input
@@ -63,28 +63,17 @@ const ModalLoginDesktop = ({handleLogin, handleLoginGoogle, username, setUsernam
                     <button
                         type="button"
                         onClick={handleLogin}
-                        className={`${smallWidth ? "max-w-20":"w-[28%]"} px-[17px] py-2 rounded-2xl cursor-pointer bg-button-primary hover:bg-button-secondary text-white/80 font-bold`}
+                        className={`${smallWidth ? "max-w-20":"w-[32%]"} px-[17px] py-2 rounded-2xl cursor-pointer bg-button-primary hover:bg-button-secondary text-white/80 font-bold`}
                     >
-                        Login
+                        Sign In
                     </button>
                     <button
                         type="button"
-                        onClick={() => handleLoginGoogle()}
-                        className={`${smallWidth ? "max-w-35":"w-[68%]"} px-[17px] py-2 rounded-2xl bg-button-primary cursor-pointer hover:bg-button-secondary text-white/80 font-bold`}
+                        onClick={handleLoginGoogle}
+                        className={`${smallWidth ? "max-w-35":"w-[64%]"} px-[17px] py-2 rounded-2xl bg-button-primary cursor-pointer hover:bg-button-secondary text-white/80 font-bold`}
                     >
                         sign in with google
                     </button>
-                    {/* <button 
-                        className={`${smallWidth ? "max-w-35":"w-[68%]"} px-[17px] py-2 rounded-2xl bg-button-primary cursor-pointer hover:bg-button-secondary text-white/80 font-bold`}
-                    >
-                        <GoogleLogin 
-                            onSuccess={(credendtialsResponse) => {
-                                console.log(credendtialsResponse)
-                                const decod = jwt.decode(credendtialsResponse.credential ?? "")
-                                console.log("decode: ", decod)
-                            }}
-                        />
-                    </button> */}
                 </div>
                 <div className="flex gap-2 lg:flex-row flex-col text-button-secondary">
                     <label className="text-sm">{"Don't Have an Acoount ?"}</label>

@@ -10,6 +10,7 @@ interface ILoginMobile {
     handleLogin: () => void,
     handleGoogleLogin: () => void,
     handleRegister: () => void,
+    handleGoogleRegis: () => void,
     handleNavigation: () => void,
     modalLogin: boolean,
     setModalLogin: Dispatch<SetStateAction<boolean>>,
@@ -26,19 +27,22 @@ interface ILoginMobile {
     rememberMe: boolean,
     setRememberMe: Dispatch<SetStateAction<boolean>>,
     alertLogin: boolean, setAlertLogin: Dispatch<SetStateAction<boolean>>,
-    alertMessage: string, 
+    alertRegis: boolean, setAlertRegis: Dispatch<SetStateAction<boolean>>,
+    alertErrorLogin: boolean, setAlertErrorLogin: Dispatch<SetStateAction<boolean>>,
+    alertMessage: string, alertErrorMessage: string
 }
 
 const LoginMobile = ({
-    handleLogin, handleGoogleLogin, handleRegister, handleNavigation,
-    modalLogin, setModalLogin,
+    handleLogin, handleGoogleLogin, handleGoogleRegis, handleRegister, handleNavigation,
+    modalLogin, setModalLogin, 
     modalRegister, setModalRegister,
     name, setName, 
     username, setUsername,
     email, setEmail, 
     password, setPassword,
     rememberMe, setRememberMe, 
-    alertLogin, setAlertLogin, alertMessage}: ILoginMobile) => {
+    alertLogin, setAlertLogin, alertErrorLogin, setAlertErrorLogin,
+    alertRegis, setAlertRegis, alertMessage, alertErrorMessage,}: ILoginMobile) => {
     
     return (
         <div className="relative
@@ -115,6 +119,36 @@ const LoginMobile = ({
                     </div>
                 </div>
             )}
+            {alertErrorLogin && (
+                <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
+                    <div className="bg-white p-6 rounded shadow-md max-w-sm text-center">
+                    <p className="text-lg font-medium">{alertErrorMessage}</p>
+                    <button
+                        onClick={() => {
+                            setAlertErrorLogin(false)}}
+                        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                    >
+                        OK
+                    </button>
+                    </div>
+                </div>
+            )}
+            {alertRegis && (
+                <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
+                    <div className="bg-white p-6 rounded shadow-md max-w-sm text-center">
+                    <p className="text-lg font-medium">{alertMessage}</p>
+                    <button
+                        onClick={() => {
+                            setAlertRegis(false)
+                            setModalLogin(true)
+                            setModalRegister(false)}}
+                        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                    >
+                        OK
+                    </button>
+                    </div>
+                </div>
+            )}
             <LoginModal 
                 ModalLogin={modalLogin} 
                 handleLogin={handleLogin}
@@ -125,6 +159,7 @@ const LoginMobile = ({
             <RegisModal 
                 regisLogin={modalRegister} 
                 handleRegister={handleRegister}
+                handleRegisGoogle={handleGoogleRegis}
                 name={name} setName={setName}
                 email={email} setEmail={setEmail} 
                 username={username} setUsername={setUsername} 
