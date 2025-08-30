@@ -7,6 +7,7 @@ import ModalLoginDesktop from "@/components/login/modalLoginDesktop";
 
 interface ILoginDesktop {
     handleLogin: () => void,
+    handleLoginGoogle : () => void,
     handleRegister: () => void,
     username: string, setUsername: Dispatch<SetStateAction<string>>,
     password: string, setPassword: Dispatch<SetStateAction<string>>,
@@ -19,7 +20,7 @@ interface ILoginDesktop {
     handleNavigation: () => void
 }
 const LoginDesktop = ({
-    handleLogin, handleRegister, 
+    handleLogin, handleLoginGoogle, handleRegister, 
     username, setUsername, 
     password, setPassword, 
     name, setName,
@@ -45,6 +46,7 @@ const LoginDesktop = ({
             </div>
             {!modalRegister ? (<ModalLoginDesktop 
                 handleLogin={handleLogin}
+                handleLoginGoogle={handleLoginGoogle}
                 username={username} setUsername={setUsername}
                 password={password} setPassword={setPassword}
                 rememberme={rememberme} setRememberme={setRememberme} 

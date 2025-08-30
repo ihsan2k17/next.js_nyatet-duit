@@ -1,8 +1,12 @@
-import { Dispatch, SetStateAction } from "react"
+import useIsSmallWidth from "@/hooks/issmallwidth"
+import { GoogleLogin, useGoogleLogin } from "@react-oauth/google"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { FaLock, FaUser } from "react-icons/fa6"
+import  jwt from "jsonwebtoken"
 
 interface ILoginDesktop {
     handleLogin: () => void,
+    handleLoginGoogle: () => void,
     username: string,
     setUsername: Dispatch<SetStateAction<string>>,
     password:string,
@@ -11,8 +15,9 @@ interface ILoginDesktop {
     setRememberme: Dispatch<SetStateAction<boolean>>,
     openRegis: () => void
 }
-const ModalLoginDesktop = ({handleLogin, username, setUsername,password, setPassword, rememberme, setRememberme, openRegis}:ILoginDesktop) => {
-
+const ModalLoginDesktop = ({handleLogin, handleLoginGoogle, username, setUsername,password, setPassword, rememberme, setRememberme, openRegis}:ILoginDesktop) => {
+    const smallWidth = useIsSmallWidth()
+    
     return (
         <form className="
             flex flex-col z-10 gap-4 
@@ -54,20 +59,38 @@ const ModalLoginDesktop = ({handleLogin, username, setUsername,password, setPass
                     </div>
                     <label className="cursor-pointer text-button-primary text-sm">Forgot Password ?</label>
                 </div>
-                <div className="flex justify-center">
+                <div className={`flex w-full ${smallWidth ? "flex-col gap-4": "flex-row"} justify-between`}>
                     <button
                         type="button"
                         onClick={handleLogin}
-                        className="max-w-fit px-16 py-2 rounded-2xl bg-button-primary text-white/80 font-bold"
+                        className={`${smallWidth ? "max-w-20":"w-[28%]"} px-[17px] py-2 rounded-2xl cursor-pointer bg-button-primary hover:bg-button-secondary text-white/80 font-bold`}
                     >
                         Login
                     </button>
+                    <button
+                        type="button"
+                        onClick={() => handleLoginGoogle()}
+                        className={`${smallWidth ? "max-w-35":"w-[68%]"} px-[17px] py-2 rounded-2xl bg-button-primary cursor-pointer hover:bg-button-secondary text-white/80 font-bold`}
+                    >
+                        sign in with google
+                    </button>
+                    {/* <button 
+                        className={`${smallWidth ? "max-w-35":"w-[68%]"} px-[17px] py-2 rounded-2xl bg-button-primary cursor-pointer hover:bg-button-secondary text-white/80 font-bold`}
+                    >
+                        <GoogleLogin 
+                            onSuccess={(credendtialsResponse) => {
+                                console.log(credendtialsResponse)
+                                const decod = jwt.decode(credendtialsResponse.credential ?? "")
+                                console.log("decode: ", decod)
+                            }}
+                        />
+                    </button> */}
                 </div>
-                <div className="flex gap-2 lg:flex-row flex-col text-button-secondary ">
+                <div className="flex gap-2 lg:flex-row flex-col text-button-secondary">
                     <label className="text-sm">{"Don't Have an Acoount ?"}</label>
                     <label 
                         onClick={openRegis}
-                        className="text-sm font-black">register</label>
+                        className="text-sm font-black cursor-pointer hover:text-white">register</label>
                 </div>
             </div>
         </form>

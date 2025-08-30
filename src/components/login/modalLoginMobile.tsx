@@ -1,9 +1,12 @@
-import { Dispatch, SetStateAction } from "react";
+import { CredentialResponse, GoogleLogin, useGoogleLogin } from "@react-oauth/google";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { FaLock, FaUser } from "react-icons/fa6";
+import jwt from "jsonwebtoken";
 
 interface ILoginModal {
     ModalLogin: boolean,
     handleLogin : () => void,
+    handleGoogleLogin: () => void,
     username: string,
     setUsername: Dispatch<SetStateAction<string>>,
     password:string,
@@ -12,10 +15,23 @@ interface ILoginModal {
     setRememberme: Dispatch<SetStateAction<boolean>>
 }
 
-const LoginModal = ({ModalLogin, handleLogin, username, setUsername, password, setPassword, rememberme, setRememberme}: ILoginModal) => {
+const LoginModal = ({ModalLogin, handleLogin, handleGoogleLogin, username, setUsername, password, setPassword, rememberme, setRememberme}: ILoginModal) => {
 
     if(!ModalLogin) return null;
-    
+    const [smallWidth, setSmallWidth] = useState(false)
+        
+        useEffect(() => {
+            const checkScreenSize = () => {
+              setSmallWidth(window.innerWidth <= 375);
+            };
+        
+            checkScreenSize();
+            window.addEventListener('resize', checkScreenSize);
+        
+            return () => {
+              window.removeEventListener('resize', checkScreenSize);
+            };
+          }, []);
     return (
         <div className="relative inset-0 flex w-full pt-10 pb-4">
             <form className="flex flex-col gap-4 w-full pt-8 pb-8 rounded-3xl z-10 relative">
@@ -40,7 +56,7 @@ const LoginModal = ({ModalLogin, handleLogin, username, setUsername, password, s
                         />
                         <FaLock className="text-white/70"/>
                     </div>
-                    <div className="flex w-full justify-between sm:flex-col flex-row sm:text-center">
+                    <div className={`flex w-full justify-between ${smallWidth ? "flex-col justify-center": "flex-row"} sm:text-center`}>
                         <div className="flex flex-row items-center text-button-primary">
                             <input
                                 type="checkbox"
@@ -56,14 +72,28 @@ const LoginModal = ({ModalLogin, handleLogin, username, setUsername, password, s
                         </div>
                         <label className="cursor-pointer text-button-primary text-sm">Forgot Password ?</label>
                     </div>
-                    <div className="flex w-full justify-center">
+                    <div className="flex w-full justify-between">
                         <button
                             type="button"
                             onClick={handleLogin}
-                            className="w-[80%] py-2 rounded-2xl bg-button-primary text-white/80 font-bold"
+                            className="w-[28%] py-2 rounded-2xl bg-button-primary text-white/80 font-bold"
                         >
                             Login
                         </button>
+                        <button
+                            type="button"
+                            onClick={() => handleGoogleLogin()}
+                            className="w-[68%] py-2 rounded-2xl bg-button-primary text-white/80 font-bold"
+                        >
+                            Sign in With Google
+                        </button>
+                        {/* <GoogleLogin 
+                            onSuccess={(credendtialsResponse) => {
+                                console.log(credendtialsResponse)
+                                const decod = jwt.decode(credendtialsResponse.credential ?? "")
+                                console.log("decode: ", decod)
+                            }}
+                        /> */}
                     </div>
                 </div>
             </form>

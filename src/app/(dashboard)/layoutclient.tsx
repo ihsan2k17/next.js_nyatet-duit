@@ -1,16 +1,15 @@
 'use client'
 
-import useIsMobile from '@/hooks/ismobile'
 import React, { useState } from 'react'
 import LayoutDesktop from './layoutdesktop'
 import LayoutMobile from './layoutmobile'
 import { useRouter } from 'next/navigation'
 import axios, { AxiosError } from 'axios'
+import useIsMobile from '@/hooks/ismobile'
 
 interface ILayoutClient {
     children: React.ReactNode,
 }
-
 
 const LayoutClient = ({children}:ILayoutClient) => {
     const isMobile = useIsMobile()

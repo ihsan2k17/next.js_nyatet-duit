@@ -8,6 +8,7 @@ import RegisModal from "@/components/register/modalRegisterMobile";
 
 interface ILoginMobile {
     handleLogin: () => void,
+    handleGoogleLogin: () => void,
     handleRegister: () => void,
     handleNavigation: () => void,
     modalLogin: boolean,
@@ -29,7 +30,7 @@ interface ILoginMobile {
 }
 
 const LoginMobile = ({
-    handleLogin, handleRegister, handleNavigation,
+    handleLogin, handleGoogleLogin, handleRegister, handleNavigation,
     modalLogin, setModalLogin,
     modalRegister, setModalRegister,
     name, setName, 
@@ -116,7 +117,8 @@ const LoginMobile = ({
             )}
             <LoginModal 
                 ModalLogin={modalLogin} 
-                handleLogin={handleLogin} 
+                handleLogin={handleLogin}
+                handleGoogleLogin={handleGoogleLogin} 
                 username={username} setUsername={setUsername}
                 password={password} setPassword={setPassword} 
                 rememberme={rememberMe} setRememberme={setRememberMe}/>
