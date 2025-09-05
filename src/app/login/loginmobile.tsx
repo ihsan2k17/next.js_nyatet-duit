@@ -46,26 +46,9 @@ const LoginMobile = ({
     alertRegis, setAlertRegis, alertMessage, alertErrorMessage,}: ILoginMobile) => {
     
     return (
-        <div className="relative
-            h-screen 
-            max-w-3xl
-            bg-gradient-to-b from-white to-primary 
-            flex 
-            flex-col
-            items-center 
-            justify-center
-            pr-5
-            pl-5">
-            <div 
-                className="
-                    absolute 
-                    inset-0 
-                    h-screen 
-                    bg-cover 
-                    bg-center 
-                    pointer-events-none 
-                    z-0 
-                    opacity-20" 
+        <div className={`relative h-screen max-w-3xl bg-gradient-to-b from-white to-primary flex 
+            flex-col items-center justify-center pr-5 pl-5`}>
+            <div className={`absolute inset-0 h-screen bg-cover bg-center pointer-events-none z-0 opacity-20`} 
                 style={{backgroundImage:`url(${bgimg.src})`}}/>
             {modalLogin && (
                 <button 
@@ -83,8 +66,8 @@ const LoginMobile = ({
             )}
             <h1 className={`pr-5 pl-5 text-3xl font-[1000] w-full
                 ${(modalLogin || modalRegister) ? "translate-x-[-5%]" :  "text-center translate-x-[0%]"} 
-                transition-transform duration-300
-                 font-sans text-button-secondary`}>Welcome, Brokk!!</h1>
+                transition-transform duration-300 font-sans text-button-secondary`}>
+                Welcome, Brokk!!</h1>
             {(!modalLogin && !modalRegister)  && (
                 <div className="flex-col flex z-50 p-10 justify-center">
                     <Image src={paperplane} alt="paper plane for freepik" width={200} height={200} className="w-lg h-max" priority/>
@@ -150,13 +133,14 @@ const LoginMobile = ({
                     </div>
                 </div>
             )}
-            <LoginCard 
-                ModalLogin={modalLogin} 
+            <LoginCard
+                isLogin={modalLogin} 
                 handleLogin={handleLogin}
                 handleGoogleLogin={handleGoogleLogin} 
                 username={username} setUsername={setUsername}
                 password={password} setPassword={setPassword} 
-                rememberme={rememberMe} setRememberme={setRememberMe}/>
+                rememberMe={rememberMe} setRememberMe={setRememberMe}
+            />
             <RegisCard 
                 regisLogin={modalRegister} 
                 handleRegister={handleRegister}

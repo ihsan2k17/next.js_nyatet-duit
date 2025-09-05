@@ -1,3 +1,5 @@
+"use client"
+
 import { Dispatch, SetStateAction } from "react";
 import { FaCircleUser, FaLock, FaUser } from "react-icons/fa6";
 import { MdOutlineEmail } from "react-icons/md";

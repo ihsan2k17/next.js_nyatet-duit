@@ -1,8 +1,8 @@
+'use client'
+
 import useIsSmallWidth from "@/hooks/issmallwidth"
-import { GoogleLogin, useGoogleLogin } from "@react-oauth/google"
-import { Dispatch, SetStateAction, useEffect, useState } from "react"
+import { Dispatch, SetStateAction } from "react"
 import { FaLock, FaUser } from "react-icons/fa6"
-import  jwt from "jsonwebtoken"
 
 interface ILoginDesktop {
     handleLogin: () => void,

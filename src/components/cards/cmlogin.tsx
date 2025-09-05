@@ -1,26 +1,26 @@
+'use client'
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { FaLock, FaUser } from "react-icons/fa6";
 
 interface ILoginModal {
-    ModalLogin: boolean,
+    isLogin: boolean,
     handleLogin : () => void,
     handleGoogleLogin: () => void,
     username: string,
     setUsername: Dispatch<SetStateAction<string>>,
     password:string,
     setPassword: Dispatch<SetStateAction<string>>,
-    rememberme: boolean,
-    setRememberme: Dispatch<SetStateAction<boolean>>
+    rememberMe: boolean,
+    setRememberMe: Dispatch<SetStateAction<boolean>>
 }
 
-const LoginModal = ({ModalLogin, handleLogin, handleGoogleLogin, username, setUsername, password, setPassword, rememberme, setRememberme}: ILoginModal) => {
+const LoginCard = ({isLogin, handleLogin, handleGoogleLogin, username, setUsername, password, setPassword, rememberMe, setRememberMe}: ILoginModal) => {
 
-    if(!ModalLogin) return null;
     const [smallWidth, setSmallWidth] = useState(false)
         
         useEffect(() => {
             const checkScreenSize = () => {
-              setSmallWidth(window.innerWidth <= 375);
+              setSmallWidth(window.innerWidth <= 325);
             };
         
             checkScreenSize();
@@ -30,6 +30,7 @@ const LoginModal = ({ModalLogin, handleLogin, handleGoogleLogin, username, setUs
               window.removeEventListener('resize', checkScreenSize);
             };
           }, []);
+    if(!isLogin) return <></>;
     return (
         <div className="relative inset-0 flex w-full pt-10 pb-4">
             <form className="flex flex-col gap-4 w-full pt-8 pb-8 rounded-3xl z-10 relative">
@@ -54,16 +55,16 @@ const LoginModal = ({ModalLogin, handleLogin, handleGoogleLogin, username, setUs
                         />
                         <FaLock className="text-white/70"/>
                     </div>
-                    <div className={`flex w-full justify-between ${smallWidth ? "flex-col justify-center": "flex-row"} sm:text-center`}>
+                    <div className={`flex w-full justify-between ${smallWidth ? "flex-col gap-1 items-center": "flex-row"} sm:text-center`}>
                         <div className="flex flex-row items-center text-button-primary">
                             <input
                                 type="checkbox"
-                                checked={rememberme}
-                                onChange={(e) => setRememberme(e.target.checked)}
+                                checked={rememberMe}
+                                onChange={(e) => setRememberMe(e.target.checked)}
                                 className="w-3 h-3 accent-button-primary" // Tailwind: warna custom
                             />
                             <label
-                                onClick={() => setRememberme(!rememberme)}
+                                onClick={() => setRememberMe(!rememberMe)}
                                 className="cursor-pointer text-sm">
                                 Remember Me
                             </label>
@@ -92,4 +93,4 @@ const LoginModal = ({ModalLogin, handleLogin, handleGoogleLogin, username, setUs
     )
 }
 
-export default LoginModal
+export default LoginCard

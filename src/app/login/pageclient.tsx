@@ -13,7 +13,7 @@ const LoginPageClient = () => {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [rememberme, setRememberme] = useState(false)
+  const [remeberMe, setRememberMe] = useState(false)
   const [modalLogin, setModalLogin] = useState(false)
   const [modalRegister, setModalRegister] = useState(false)
   const [alertLogin, setAlertLogin] = useState(false)
@@ -57,7 +57,7 @@ const LoginPageClient = () => {
       username={username} setUsername={setUsername}
       email={email} setEmail={setEmail}
       password={password} setPassword={setPassword}
-      rememberMe={rememberme} setRememberMe={setRememberme}
+      rememberMe={remeberMe} setRememberMe={setRememberMe}
       modalLogin={modalLogin} setModalLogin={setModalLogin}
       modalRegister={modalRegister} setModalRegister={setModalRegister}
       alertLogin={alertLogin} setAlertLogin={setAlertLogin}
@@ -76,7 +76,7 @@ const LoginPageClient = () => {
         password={password} setPassword={setPassword} 
         name={name} setName={setName} 
         email={email} setEmail={setEmail} 
-        rememberme={rememberme} setRememberme={setRememberme} 
+        rememberme={remeberMe} setRememberme={setRememberMe} 
         modalRegister={modalRegister} setModalRegister={setModalRegister}
         alertLogin={alertLogin} setAlertLogin={setAlertLogin}
         alertErrorLogin={alertErrorLogin} setAlertErrorLogin={setAlertErrorLogin}
