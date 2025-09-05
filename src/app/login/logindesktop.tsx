@@ -2,8 +2,8 @@ import Image from "next/image";
 import { Dispatch, SetStateAction} from "react";
 import bgimg from "../../../public/bg.jpg";
 import paperplane from "../../../public/paper-plane-freepik.png";
-import ModalRegisterDesktop from "@/components/register/modalRegisterDesktop";
-import ModalLoginDesktop from "@/components/login/modalLoginDesktop";
+import CardRegisterDesktop from "@/components/cards/cdregister";
+import CardLoginDesktop from "@/components/cards/cdlogin";
 
 interface ILoginDesktop {
     handleLogin: () => void,
@@ -49,14 +49,14 @@ const LoginDesktop = ({
                 <Image src={paperplane} alt="paper plane for freepik" width={200} height={200} className="w-lg h-max" priority/>
                 <h1 className="text-4xl font-black text-button-primary/80 font-dancing-script">Nyatet Duit</h1>
             </div>
-            {!modalRegister ? (<ModalLoginDesktop 
+            {!modalRegister ? (<CardLoginDesktop 
                 handleLogin={handleLogin}
                 handleLoginGoogle={handleLoginGoogle}
                 username={username} setUsername={setUsername}
                 password={password} setPassword={setPassword}
                 rememberme={rememberme} setRememberme={setRememberme} 
                 openRegis={() => {setModalRegister(true)}}/>) : 
-                (<ModalRegisterDesktop 
+                (<CardRegisterDesktop 
                 closeRegis={() => {setModalRegister(false)}}
                 handleRegis={handleRegister}
                 handleRegisGoogle={handleRegisGoogle}

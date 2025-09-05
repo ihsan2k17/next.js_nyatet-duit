@@ -15,7 +15,7 @@ interface ILoginDesktop {
     setRememberme: Dispatch<SetStateAction<boolean>>,
     openRegis: () => void
 }
-const ModalLoginDesktop = ({handleLogin, handleLoginGoogle, username, setUsername,password, setPassword, rememberme, setRememberme, openRegis}:ILoginDesktop) => {
+const CardLoginDesktop = ({handleLogin, handleLoginGoogle, username, setUsername,password, setPassword, rememberme, setRememberme, openRegis}:ILoginDesktop) => {
     const smallWidth = useIsSmallWidth()
     
     return (
@@ -86,4 +86,4 @@ const ModalLoginDesktop = ({handleLogin, handleLoginGoogle, username, setUsernam
     )
 }
 
-export default ModalLoginDesktop
+export default CardLoginDesktop

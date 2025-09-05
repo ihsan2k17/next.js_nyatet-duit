@@ -17,7 +17,7 @@ interface Iregis {
     setEmail: Dispatch<SetStateAction<string>>
 }
 
-const ModalRegisterDesktop = ({
+const CardRegisterDesktop = ({
     closeRegis, 
     handleRegis,
     handleRegisGoogle,
@@ -91,4 +91,4 @@ const ModalRegisterDesktop = ({
     )
 }
 
-export default ModalRegisterDesktop
+export default CardRegisterDesktop

@@ -19,7 +19,6 @@ const LayoutClient = ({children}:ILayoutClient) => {
     const [isCollapsed, setIsCollapsed] = useState(false)
 
     const handleNav = () => {
-        console.log("navigasi ke home harus nya")
         router.push ("/login")
     }
 

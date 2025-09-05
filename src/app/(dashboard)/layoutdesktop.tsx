@@ -1,6 +1,5 @@
 'use client'
-import SideBar from '@/components/bar/sidebar'
-import ButtonLogout from '@/components/logout/buttonlogout'
+import SideBar from '@/components/bars/sidebar'
 import React, { Dispatch, SetStateAction } from 'react'
 
 interface ILayout {
@@ -24,13 +23,7 @@ const LayoutDesktop = ({
     
     return (
         <div className='flex flex-col'>
-            <header className='flex flex-row w-full justify-between pr-2'>
-                INI HEADER BROKKKK ANJAYYYYYYYY
-                <ButtonLogout handleLogout={handleLogout} />
-            </header>
             <div className={`
-                bg-gradient-to-b 
-                from-primary to-secondary h-screen 
                 transition-width
                 duration-500
                 ${isCollapsed ? "ml-[4rem]" : "ml-[16rem]"} flex`}>

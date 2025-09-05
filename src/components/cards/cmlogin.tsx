@@ -1,7 +1,5 @@
-import { CredentialResponse, GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { FaLock, FaUser } from "react-icons/fa6";
-import jwt from "jsonwebtoken";
 
 interface ILoginModal {
     ModalLogin: boolean,

@@ -26,8 +26,8 @@ const MenuItems = ({isCollapsed}: menusProps) => {
                     const haschildren = parentchildren.length > 0
                     return(
                     <li key={parent.id}>
-                        <div className="flex items-center justify-between gap-2 px-4 py-2 rounded hover:bg-gray-200">
-                            <Link href={parent.route} className="flex items-center gap-4">
+                        <div className={`flex items-center justify-between ${isCollapsed ? "w-16":"w-full"} gap-2 px-4 py-2 rounded hover:bg-gray-200`}>
+                            <Link href={parent.route} className={`flex ${isCollapsed ? "w-12":"w-full"}items-center gap-4`}>
                                 <SidebarIcon lib={parent.icon || undefined} name={parent.iconname || undefined} size={20}/>
                                 <span className={`ml-4 transition-opacity duration-300 ${
                                     isCollapsed ? "opacity-0 delay-0" : "opacity-100 delay-200"}`}>

@@ -1,21 +1,22 @@
 "use client"
 import PaperPlane from "@/components/animations/paperplanestarted"
 import bgimg from "../../public/bg.jpg";
-import NavbarStarted from "@/components/bar/navbarstarted";
+import NavbarStarted from "@/components/bars/navbarstarted";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 
 
-const StartedDesktop = () => {
-    const router = useRouter()
+interface Idesktop {
+    handleClick: () => void
+}
+
+const StartedDesktop = ({handleClick}: Idesktop) => {
+    
     const [datenow, setDateNow] = useState("")
     useEffect(() => {
         const tgl = new Date()
         setDateNow(tgl.getFullYear().toString())
     },[])
-    const handleClick = () => {
-        router.push("/login")
-    }
+    
     return (
         <div className={`
             flex

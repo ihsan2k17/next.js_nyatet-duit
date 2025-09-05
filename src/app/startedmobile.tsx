@@ -4,18 +4,16 @@ import bgimg from "../../public/bg.jpg";
 import Image from "next/image";
 import paperplane from "../../public/paper-plane-freepik.png";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 
-const StartedMobile = () => {
-    const router = useRouter()
+interface Idesktop {
+    handleClick: () => void
+}
+const StartedMobile = ({handleClick}: Idesktop) => {
     const [datenow, setDateNow] = useState("")
         useEffect(() => {
             const tgl = new Date()
             setDateNow(tgl.getFullYear().toString())
         },[])
-    const handleClick = () => {
-        router.push("/login")
-    }
     return (
         <div className={`flex relative h-screen max-w-[768px] overflow-hidden 
             bg-gradient-to-b from-white to-primary items-center justify-center`}>

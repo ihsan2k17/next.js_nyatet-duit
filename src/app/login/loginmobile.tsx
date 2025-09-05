@@ -1,10 +1,11 @@
+"use client"
 import { Dispatch, SetStateAction } from "react";
 import Image from "next/image"
 import bgimg from "../../../public/bg.jpg";
 import paperplane from "../../../public/paper-plane-freepik.png";
-import LoginModal from "@/components/login/modalLoginMobile";
+import LoginCard from "@/components/cards/cmlogin";
 import { MdKeyboardBackspace } from "react-icons/md";
-import RegisModal from "@/components/register/modalRegisterMobile";
+import RegisCard from "@/components/cards/cmregister";
 
 interface ILoginMobile {
     handleLogin: () => void,
@@ -149,14 +150,14 @@ const LoginMobile = ({
                     </div>
                 </div>
             )}
-            <LoginModal 
+            <LoginCard 
                 ModalLogin={modalLogin} 
                 handleLogin={handleLogin}
                 handleGoogleLogin={handleGoogleLogin} 
                 username={username} setUsername={setUsername}
                 password={password} setPassword={setPassword} 
                 rememberme={rememberMe} setRememberme={setRememberMe}/>
-            <RegisModal 
+            <RegisCard 
                 regisLogin={modalRegister} 
                 handleRegister={handleRegister}
                 handleRegisGoogle={handleGoogleRegis}

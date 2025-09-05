@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 import { FaCircleUser, FaLock, FaUser } from "react-icons/fa6";
 import { MdOutlineEmail } from "react-icons/md";
 
-interface IRegisModal {
+interface IRegisCard {
     regisLogin: boolean,
     handleRegister : () => void,
     handleRegisGoogle: () => void,
@@ -15,7 +15,7 @@ interface IRegisModal {
     password:string,
     setPassword: Dispatch<SetStateAction<string>>
 }
-const RegisModal = ({regisLogin, handleRegister, handleRegisGoogle, name, setName, username,email,setEmail, setUsername,password,setPassword}: IRegisModal) => {
+const RegisCard = ({regisLogin, handleRegister, handleRegisGoogle, name, setName, username,email,setEmail, setUsername,password,setPassword}: IRegisCard) => {
     if(!regisLogin) return null;
     return (
         <div className="relative inset-0 flex w-full pt-10 pb-4">
@@ -81,4 +81,4 @@ const RegisModal = ({regisLogin, handleRegister, handleRegisGoogle, name, setNam
     )
 }
 
-export default RegisModal;
+export default RegisCard;

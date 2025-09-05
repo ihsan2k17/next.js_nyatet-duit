@@ -5,7 +5,6 @@ import { supabase } from "@/hooks/isconfig";
 
 export async function POST(req: NextRequest) {
     const token = req.cookies.get(process.env.NEXT_TOKEN_LOGIN || "auuuuuu")?.value
-    console.log("Data token: ", token)
     if(!token) {
         return NextResponse.json({ message: "You Is Logout " }, { status: 401 })
     }
