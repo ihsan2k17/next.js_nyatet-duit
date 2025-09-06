@@ -1,19 +1,17 @@
-"use client"
-import { AnimatePresence, motion } from "framer-motion"
-import React from "react"
-import { BsExclamationTriangle } from "react-icons/bs"
-
-interface AttentionsProps {
+import { AnimatePresence, motion } from 'framer-motion'
+import React from 'react'
+import { MdOutlineWarningAmber } from 'react-icons/md'
+interface warningProps {
   show: boolean
   onClose: () => void
   onConfirm: () => void
   Message: string,
   title: string,
-  pButton: string,
+  confirmButton: string
   denyButton: string
 }
 
-const AttentionMobile = ({ show, onClose, onConfirm, Message, title,pButton, denyButton }: AttentionsProps) => {
+const WarningMobile = ({show, onClose, onConfirm, Message, title, confirmButton, denyButton}:warningProps) => {
   return (
     <AnimatePresence>
       {show && (
@@ -35,11 +33,11 @@ const AttentionMobile = ({ show, onClose, onConfirm, Message, title,pButton, den
 
             {/* Icon */}
             <div className="flex justify-center mb-5">
-              <BsExclamationTriangle className="w-12 h-12 text-button-primary" />
+              <MdOutlineWarningAmber className="w-12 h-12 text-yellow-500" />
             </div>
 
             {/* Title */}
-            <h2 className="text-xl font-semibold text-center text-button-primary mb-2">
+            <h2 className="text-xl font-semibold text-center text-yellow-500 mb-2">
               {title}
             </h2>
 
@@ -53,15 +51,15 @@ const AttentionMobile = ({ show, onClose, onConfirm, Message, title,pButton, den
               <motion.button
                 whileTap={{ scale: 0.97 }}
                 onClick={onConfirm}
-                className={`w-full py-3 rounded-xl bg-button-primary text-white 
-                  font-medium hover:bg-white hover:text-button-primary transition`}
+                className={`w-full py-3 rounded-xl bg-yellow-500 text-white 
+                  font-medium hover:bg-white hover:text-yellow-500 transition`}
               >
-                {pButton}
+                {confirmButton}
               </motion.button>
               <motion.button
                 whileTap={{ scale: 0.97 }}
                 onClick={onClose}
-                className="w-full py-3 rounded-xl border-2 border-button-primary text-gray-600 hover:bg-gray-100 transition"
+                className="w-full py-3 rounded-xl border-2 border-yellow-500 text-gray-600 hover:bg-gray-100 transition"
               >
                 {denyButton}
               </motion.button>
@@ -73,4 +71,4 @@ const AttentionMobile = ({ show, onClose, onConfirm, Message, title,pButton, den
   )
 }
 
-export default AttentionMobile
+export default WarningMobile

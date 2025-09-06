@@ -1,15 +1,7 @@
-"use client"
-
+import HomeClient from "./homeclient"
 
 const Home = () => {
-    
-    
-
-    return(
-        <div className="flex flex-col h-screen items-center p-9 ">
-            INI HOME BROKKK
-        </div>
-    )
+    return <HomeClient />
 }
 
 export default Home

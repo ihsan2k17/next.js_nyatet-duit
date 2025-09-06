@@ -26,9 +26,15 @@ const LayoutDesktop = ({
             <div className={`
                 transition-width
                 duration-500
-                ${isCollapsed ? "ml-[4rem]" : "ml-[16rem]"} flex`}>
+                left-0
+                
+                `}> 
                 <SideBar isCollapse={isCollapsed} setIsCollapse={setIsCollapsed} handleLogout={handleLogout} />
-                <main className="flex-1 overflow-y-auto">
+                <main
+                    className={`absolute top-0 bottom-0 left-0 h-full transition-all duration-500
+                        ${isCollapsed ? "w-[calc(100%-4rem)] ml-16":"w-[calc(100%-16rem)] ml-64 bg-amber-400"}
+                        `}
+                >
                     {children}
                 </main>
                 {alertLogout && (

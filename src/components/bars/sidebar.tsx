@@ -24,31 +24,26 @@ const SideBar = ({isCollapse, setIsCollapse, handleLogout}: ISidebarProps) => {
             <button 
                 onClick={toogleSidebar}
                 className={`px-4 py-2 h-[10%] flex items-center cursor-pointer ${isCollapse ? "w-16":"w-64"}`}>
-                    {isCollapse ? 
-                        <IoMenu/> : 
-                        <div className={`flex flex-row gap-4 items-center`}>
-                            <IoMenuOutline />
-                            <label className={`text-xl font-black text-gray-900`}>Nyatet Duit</label>
-                        </div>
-                    }
+                <IoMenuOutline />
+                <span
+                    className={`
+                    text-xl font-black text-gray-900 ml-4
+                    transition-all duration-500 overflow-hidden
+                    ${isCollapse ? "opacity-0 w-0" : "opacity-100 w-auto"}
+                    `}
+                >
+                    Nyatet Duit
+                </span>
             </button>
             <div className='flex h-[45%]'>
                 <MenuItems isCollapsed= {isCollapse} />
             </div>
             <div className={`flex flex-row h-[45%] items-end py-4`}>
-                <div className={`flex items-center justify-between px-4 py-2 ${isCollapse ? "w-16" : "w-54"} rounded hover:bg-gray-200 cursor-pointer`}
+                <div className={`flex items-center justify-start gap-8 px-4 py-2 ${isCollapse ? "w-16" : "w-54"} rounded hover:bg-gray-200 cursor-pointer`}
                     onClick={handleLogout}>
-                    {isCollapse ? 
-                    <>
-                        <div>
-                            <IoExitSharp />
-                        </div>
-                    </> : 
-                    <div className='flex gap-4 items-center'>
-                        <IoExitSharp />
-                        <label className={`transition-opacity duration-300 
-                            ${isCollapse ? "opacity-0 delay-0":"opacity-100 delay-200"}`}>Logout</label>
-                    </div>}
+                    <IoExitSharp />
+                    <label className={`transition-opacity duration-300 overflow-hidden
+                        ${isCollapse ? "opacity-0 delay-0":"opacity-100 delay-200"}`}>Logout</label>
                 </div>
             </div>
         </div>

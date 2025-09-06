@@ -27,12 +27,12 @@ const MenuItems = ({isCollapsed}: menusProps) => {
                     return(
                     <li key={parent.id}>
                         <div className={`flex items-center justify-between ${isCollapsed ? "w-16":"w-full"} gap-2 px-4 py-2 rounded hover:bg-gray-200`}>
-                            <Link href={parent.route} className={`flex ${isCollapsed ? "w-12":"w-full"}items-center gap-4`}>
+                            <Link href={parent.route} className={`flex ${isCollapsed ? "w-12":"w-full"}items-center gap-4 `}>
                                 <SidebarIcon lib={parent.icon || undefined} name={parent.iconname || undefined} size={20}/>
-                                <span className={`ml-4 transition-opacity duration-300 ${
-                                    isCollapsed ? "opacity-0 delay-0" : "opacity-100 delay-200"}`}>
-                                    {!isCollapsed ? parent.nama : null }
-                                </span>
+                                <label className={`ml-4 transition-opacity duration-300 ${
+                                    isCollapsed ? "opacity-0 delay-0 text-nowrap" : "opacity-100 delay-400 font-semibold"} overflow-hidden`}>
+                                    {parent.nama}
+                                </label>
                             </Link>
 
                             {haschildren && (
@@ -40,7 +40,10 @@ const MenuItems = ({isCollapsed}: menusProps) => {
                                     className={`ml-4 cursor-pointer transition-opacity duration-300 ${
                                         isCollapsed ? "opacity-0 delay-0" : "opacity-100 delay-200"}`} 
                                     onClick={() => toggleParent(parent.id)}>
-                                {openParents.includes(parent.id) ? <MdOutlineNavigateNext className='rotate-90'/> : <MdOutlineNavigateNext/>}
+                                    {openParents.includes(parent.id) ? 
+                                        <MdOutlineNavigateNext className='rotate-90'/> : 
+                                        <MdOutlineNavigateNext/>
+                                    }
                                 </span>
                             )}
                         </div>
@@ -51,7 +54,8 @@ const MenuItems = ({isCollapsed}: menusProps) => {
                                 {children.filter(c => c.parent_id === parent.id).map(child => (
                                     <li key={child.id}>
                                         <Link href={child.route} className="flex items-center gap-4 px-4 py-2 rounded hover:bg-gray-200">
-                                            <span className={`ml-4 transition-opacity duration-300 ${isCollapsed ? "opacity-0 delay-0" : "opacity-100 delay-200"}`}>
+                                            <span className={`ml-4 transition-opacity duration-300 
+                                                ${isCollapsed ? "opacity-0 delay-0" : "opacity-100 delay-200"} `}>
                                                 {child.nama}
                                             </span>
                                         </Link>
