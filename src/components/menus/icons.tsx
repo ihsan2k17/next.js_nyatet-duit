@@ -20,7 +20,7 @@ const SidebarIcon = ({lib, name, size}: iconProps) => {
         case 'md': Icon = md[name as keyof typeof md]; break
         case 'fa6': Icon = fa6[name as keyof typeof fa6]; break
     }
-    return Icon ?  <Icon size={size} /> : null
+    return Icon ?  <Icon size={size}/> : null
 }
 
 export default SidebarIcon

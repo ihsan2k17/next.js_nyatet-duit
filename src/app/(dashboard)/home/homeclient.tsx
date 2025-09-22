@@ -1,15 +1,13 @@
 'use client'
+import useIsMobile from '@/hooks/ismobile'
 import React, { useEffect, useState } from 'react'
 
 const HomeClient = () => {
-
-  return (
-    <div
-      className={``}
-    >
-      Ini Home Bajirut
+  const isMobile = useIsMobile()
+  return isMobile ? <div></div> :   
+    <div>
+      Ini tuh home brokkkkkk
     </div>
-  )
 }
 
 export default HomeClient

@@ -26,7 +26,8 @@ const MenuItems = ({isCollapsed}: menusProps) => {
                     const haschildren = parentchildren.length > 0
                     return(
                     <li key={parent.id}>
-                        <div className={`flex items-center justify-between ${isCollapsed ? "w-16":"w-full"} gap-2 px-4 py-2 rounded hover:bg-gray-200`}>
+                        <div className={`flex items-center justify-between ${isCollapsed ? "w-16":"w-full"} 
+                            gap-2 px-4 py-2 rounded hover:bg-secondary text-white`}>
                             <Link href={parent.route} className={`flex ${isCollapsed ? "w-12":"w-full"}items-center gap-4 `}>
                                 <SidebarIcon lib={parent.icon || undefined} name={parent.iconname || undefined} size={20}/>
                                 <label className={`ml-4 transition-opacity duration-300 ${
@@ -41,8 +42,8 @@ const MenuItems = ({isCollapsed}: menusProps) => {
                                         isCollapsed ? "opacity-0 delay-0" : "opacity-100 delay-200"}`} 
                                     onClick={() => toggleParent(parent.id)}>
                                     {openParents.includes(parent.id) ? 
-                                        <MdOutlineNavigateNext className='rotate-90'/> : 
-                                        <MdOutlineNavigateNext/>
+                                        <MdOutlineNavigateNext className='rotate-90' size={20}/> : 
+                                        <MdOutlineNavigateNext size={20}/>
                                     }
                                 </span>
                             )}
@@ -53,7 +54,7 @@ const MenuItems = ({isCollapsed}: menusProps) => {
                             <ul className="ml-6 space-y-1">
                                 {children.filter(c => c.parent_id === parent.id).map(child => (
                                     <li key={child.id}>
-                                        <Link href={child.route} className="flex items-center gap-4 px-4 py-2 rounded hover:bg-gray-200">
+                                        <Link href={child.route} className="flex items-center text-white gap-4 px-4 py-2 rounded hover:bg-secondary">
                                             <span className={`ml-4 transition-opacity duration-300 
                                                 ${isCollapsed ? "opacity-0 delay-0" : "opacity-100 delay-200"} `}>
                                                 {child.nama}

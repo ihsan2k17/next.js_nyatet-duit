@@ -18,6 +18,7 @@ const LayoutClient = ({children}:ILayoutClient) => {
     const [alertMessage, setAlertMessage] = useState('')
     const [isCollapsed, setIsCollapsed] = useState(false)
     const [loading, setLoading] = useState(false)
+
     const handleNav = () => {
         setLoading(true)
         router.push ("/login")
@@ -46,7 +47,13 @@ const LayoutClient = ({children}:ILayoutClient) => {
     }
 
     return isMobile ? 
-        <LayoutMobile>{children}</LayoutMobile> : 
+        <div className={`${loading ? "bg-black/40":"bg-transparent"}`}>
+            <LayoutMobile 
+                handleNav={handleNav} alertLogout={alertLogout} 
+                setAlertLogout={setAlertLogout} alertMessage={alertMessage} 
+                handleLogout={handleLogout}>{children}
+            </LayoutMobile>
+        </div> : 
         <div className={`${loading ? "cursor-progress":"cursor-auto"}`}>
             <LayoutDesktop 
                 handleNav={handleNav} 
