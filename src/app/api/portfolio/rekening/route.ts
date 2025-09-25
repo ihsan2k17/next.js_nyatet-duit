@@ -1,9 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
-import jwt from "jsonwebtoken"
 import { ITokens } from "@/models/itoken";
+import { NextRequest, NextResponse } from "next/server";
+import jwt from "jsonwebtoken";
 import { supabase } from "@/hooks/isconfig";
-
-
 
 export async function GET(req:NextRequest) {
     const token = req.cookies.get(process.env.NEXT_TOKEN_LOGIN || "auuuuuu")?.value
@@ -13,17 +11,17 @@ export async function GET(req:NextRequest) {
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET!) as ITokens
         if(decoded.id && decoded.username) {
-            const {data, error} = await supabase.rpc("rd_getdata_charts",{
-                p_userid : decoded.id,
-                p_username: decoded.username
+            const {data, error} = await supabase.rpc("lk_cek_rekening",{
+                piduser : decoded.id,
             }) 
             if(error) {
                 return NextResponse.json({message:"Data lu ga ada anjay!!: ", error: error.message}, {status: 401})
             } else {
                 return NextResponse.json({data});
             }
-        }   
-    } catch (error: unknown) {
+        }
+    } catch(error: unknown) 
+    {
         if(error instanceof Error) {
             const errorMessage = error instanceof Error ? error.message : String(error);
             return NextResponse.json({ message: "Server error", error: errorMessage }, { status: 500 });

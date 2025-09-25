@@ -2,8 +2,10 @@ import { ChartData } from '@/models/ichartsportfoliord';
 import React, { useEffect, useState } from 'react'
 import CardBalanced from './cardbalance';
 import useIsSmallWidth from '@/hooks/issmallwidth';
+import { irekening } from '@/models/irekening';
 
 const ChildCardReksadana = () => {
+  const [rekAccount, setRekAccount] = useState<irekening[]>([])
   const [sumPerPortfolio, setSumPerPortfolio] = useState<number>(0);
   const [loading, setLoading] = useState(false)
   const smallwidth = useIsSmallWidth()
