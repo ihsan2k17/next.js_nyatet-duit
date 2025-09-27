@@ -17,7 +17,6 @@ const MenuItems = ({isCollapsed}: menusProps) => {
     }
     const parents = menus.filter(m => m.parent_id === null)
     const children = menus.filter(m => m.parent_id !== null)
-
     return (
         <nav className="py-4">
             <ul className="space-y-2">
@@ -28,10 +27,12 @@ const MenuItems = ({isCollapsed}: menusProps) => {
                     <li key={parent.id}>
                         <div className={`flex items-center justify-between ${isCollapsed ? "w-16":"w-full"} 
                             gap-2 px-4 py-2 rounded hover:bg-secondary text-white`}>
-                            <Link href={parent.route} className={`flex ${isCollapsed ? "w-12":"w-full"}items-center gap-4 `}>
+                            <Link href={parent.route} 
+                                className={`flex cursor-pointer ${isCollapsed ? "w-12":"w-full"}items-center gap-4`}>
                                 <SidebarIcon lib={parent.icon || undefined} name={parent.iconname || undefined} size={20}/>
-                                <label className={`ml-4 transition-opacity duration-300 ${
-                                    isCollapsed ? "opacity-0 delay-0 text-nowrap" : "opacity-100 delay-400 font-semibold"} overflow-hidden`}>
+                                <label className={`ml-4 transition-opacity cursor-pointer duration-300 ${
+                                    isCollapsed ? "opacity-0 delay-0 text-nowrap w-0 overflow-hidden pointer-events-none" : 
+                                        "opacity-100 delay-400 font-semibold"} overflow-hidden`}>
                                     {parent.nama}
                                 </label>
                             </Link>
@@ -39,7 +40,8 @@ const MenuItems = ({isCollapsed}: menusProps) => {
                             {haschildren && (
                                 <span 
                                     className={`ml-4 cursor-pointer transition-opacity duration-300 ${
-                                        isCollapsed ? "opacity-0 delay-0" : "opacity-100 delay-200"}`} 
+                                        isCollapsed ? "opacity-0 delay-0 w-0 overflow-hidden pointer-events-none" : 
+                                            "opacity-100 delay-200"}`} 
                                     onClick={() => toggleParent(parent.id)}>
                                     {openParents.includes(parent.id) ? 
                                         <MdOutlineNavigateNext className='rotate-90' size={20}/> : 

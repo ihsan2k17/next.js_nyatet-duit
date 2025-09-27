@@ -35,8 +35,6 @@ const ChildCardReksadana = () => {
       try {
         setLoading(true)
         const resp: {data:ChartData[] } = await fetchDatacharts(setalert, setLoading);
-        console.log("resp data:", resp.data);
-        console.log("param month:", month, "param year:", year);
         const total = resp.data.reduce((acc, item) => acc + item.nominal_uang, 0);
         const filterbulan = resp.data.filter(v => v.bulan === month && v.tahun === year)
         const total1 = filterbulan.reduce((acc, item) => acc + item.nominal_uang, 0)
@@ -95,12 +93,14 @@ const ChildCardReksadana = () => {
             smallwidth={smallwidth} 
             loading={loading} card={card} alert={alert} />
         </div>
-        <div className={`flex w-full`}>
-          <CardBalanced 
+        <div className={`flex w-full px-20`}>
+          <div className={`flex w-full px-24`}>
+            <CardBalanced 
               sumPerPortfolio={sumPerPortfolio} 
               smallwidth={smallwidth} 
               loading={loading}
               card={card} alert={alert}/>
+          </div>
         </div>
       </div>
     )
