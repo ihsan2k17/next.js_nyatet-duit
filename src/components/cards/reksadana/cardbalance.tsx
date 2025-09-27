@@ -1,8 +1,11 @@
 import { fetchDatacard } from '@/hooks/services/fetchcardbalance'
 import { CardData } from '@/models/icards'
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import { FaCheckCircle, FaCreditCard, FaTimesCircle } from "react-icons/fa"
+import { BiCreditCardAlt, BiMoney } from 'react-icons/bi'
+import { BsBank2 } from 'react-icons/bs'
+import { FaCheckCircle, FaCreditCard, FaTimesCircle, FaWallet } from "react-icons/fa"
 import { FcSimCardChip } from "react-icons/fc"
+import { GiPayMoney } from 'react-icons/gi'
 
 interface CardBalanceProps {
   sumPerPortfolio: number
@@ -70,7 +73,36 @@ const CardBalanced = ({ sumPerPortfolio, smallwidth, loading, card, alert}: Card
       flex-col 
       justify-between 
       text-white
+      overflow-hidden
     `}>
+      <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-white/5 animate-pulse" />
+      
+      {/* Background Icon Pattern */}
+        <div className="absolute inset-0 pointer-events-none">
+        {/* Pojok kiri atas */}
+        <div className="absolute -top-10 -left-10 opacity-10">
+            <FaWallet className="text-[160px]" />
+        </div>
+
+        {/* Pojok kanan bawah */}
+        <div className="absolute bottom-0 right-0 rotate-12 opacity-10">
+            <BsBank2 className="text-[120px]" />
+        </div>
+
+        {/* Grid pattern nyebar */}
+        <div className="absolute inset-0 flex justify-center items-center opacity-5">
+            <div className="grid grid-cols-4 grid-rows-2 gap-6">
+                <BiMoney className="text-5xl place-self-center" />
+                <FaWallet className="text-5xl place-self-center" />
+                <GiPayMoney className="text-5xl place-self-center" />
+                <BiCreditCardAlt className="text-5xl place-self-center" />
+                <FaCreditCard className="text-5xl place-self-center" />
+                <BiMoney className="text-5xl place-self-center" />
+                <FaWallet className="text-5xl place-self-center" />
+                <GiPayMoney className="text-5xl place-self-center" />
+            </div>
+        </div>
+      </div>
       {/* Header */}
       <div className="flex justify-between items-center">
         <span className="font-bold text-xl opacity-90">
@@ -81,12 +113,12 @@ const CardBalanced = ({ sumPerPortfolio, smallwidth, loading, card, alert}: Card
 
       {/* Chip emas */}
       <div className="flex items-center mt-2">
-        <FcSimCardChip className="text-9xl" />
+        <FcSimCardChip className="text-8xl" />
       </div>
 
       {/* Balance */}
       <div className="mb-5">
-        <p className="text-xs opacity-80">Total Balance</p>
+        <p className="text-[1rem] font-semibold opacity-80">Total Balance</p>
         <h2 className="text-3xl font-bold tracking-wide">
           Rp {sumPerPortfolio.toLocaleString("id-ID")}
         </h2>

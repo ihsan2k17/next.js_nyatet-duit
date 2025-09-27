@@ -6,11 +6,13 @@ import { fetchDatacharts } from '@/hooks/services/fetchcharts';
 import { CardData } from '@/models/icards';
 import { fetchDatacard } from '@/hooks/services/fetchcardbalance';
 import CardMonthBalance from './cardmonthbalance';
+import CardYearBalance from './cardyearbalance';
 
 const ChildCardReksadana = () => {
   const [card, setCard] = useState<CardData[]>([])
   const [sumPerPortfolio, setSumPerPortfolio] = useState<number>(0);
   const [sumBulanPerPortfolio, setBulanSumPerPortfolio] = useState<number>(0);
+  const [sumTahunPerPortfolio, setSumTahunPerPortfolio] = useState<number>(0);
   const [loading, setLoading] = useState(false)
   const [alert, setalert] = useState("")
   const smallwidth = useIsSmallWidth()
@@ -32,11 +34,17 @@ const ChildCardReksadana = () => {
     const fetchdata = async () => {
       try {
         setLoading(true)
-        const res = await fetch("/api/portfolio/charts");
-        const json: { data: ChartData[] } = await res.json();
-        const total = json.data.reduce((acc, item) => acc + item.nominal_uang, 0);
+        const resp: {data:ChartData[] } = await fetchDatacharts(setalert, setLoading);
+        console.log("resp data:", resp.data);
+        console.log("param month:", month, "param year:", year);
+        const total = resp.data.reduce((acc, item) => acc + item.nominal_uang, 0);
+        const filterbulan = resp.data.filter(v => v.bulan === month && v.tahun === year)
+        const total1 = filterbulan.reduce((acc, item) => acc + item.nominal_uang, 0)
+        const filteryear = resp.data.filter(v => v.tahun === year)
+        const total2 = filteryear.reduce((acc, item) => acc + item.nominal_uang, 0)
         setSumPerPortfolio(total); // 4000000
-
+        setBulanSumPerPortfolio(total1);
+        setSumTahunPerPortfolio(total2);
       } catch (error) {
         if (error instanceof Error) {
           setalert("Gak dapet brok data nya, lu gada masukin bulan ini kayanya :( \nDetail: " + error.message);
@@ -50,32 +58,7 @@ const ChildCardReksadana = () => {
       }
     } 
     fetchdata()
-  },[])
-
-  useEffect(() => {
-    const fetchdata = async () => {
-      try {
-        setLoading(true)
-        const res = await fetchDatacharts(setalert,setLoading)
-        const filteran: ChartData[] = res.data.filter((v: ChartData) => v.bulan === month && v.tahun === year)
-        const total = filteran.reduce((acc, item) => acc + item.nominal_uang, 0);
-        setBulanSumPerPortfolio(total);
-      } catch (error) {
-        if (error instanceof Error) {
-          setalert("Gak dapet brok data nya, lu gada masukin bulan ini kayanya :( \nDetail: " + error.message);
-          console.error(error.message);
-        } else {
-          setalert("Gak dapet brok data nya, tapi error gak jelas tipenya.");
-          console.error(error);
-        }
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchdata()
-  },[])
-
-  
+  },[])  
 
   if(!smallwidth) {
     return (
@@ -91,7 +74,10 @@ const ChildCardReksadana = () => {
             loading={loading}
             card={card} alert={alert}
           />
-          <div className={`flex w-[35%] bg-primary/45 p-10 rounded-2xl`}>Card masukan tahun ini</div>
+          <CardYearBalance 
+            sumYearPerPortfolio={sumTahunPerPortfolio} 
+            smallwidth={smallwidth} 
+            loading={loading} card={card} alert={alert} />
       </div>
     )
   } else {
@@ -104,7 +90,10 @@ const ChildCardReksadana = () => {
             loading={loading}
             card={card} alert={alert}
           />
-          <div className={`flex w-[50%] bg-primary/45 p-10 rounded-2xl`}>Card masukan tahun ini</div>
+          <CardYearBalance 
+            sumYearPerPortfolio={sumTahunPerPortfolio} 
+            smallwidth={smallwidth} 
+            loading={loading} card={card} alert={alert} />
         </div>
         <div className={`flex w-full`}>
           <CardBalanced 

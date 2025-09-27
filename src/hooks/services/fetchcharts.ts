@@ -1,4 +1,3 @@
-import { ChartData } from "@/models/ichartsportfoliord";
 import axios from "axios";
 import { Dispatch, SetStateAction } from "react";
 
@@ -10,7 +9,6 @@ export const fetchDatacharts = async (
     try {
         setLoading(true)
         const res = await axios.get("/api/portfolio/charts", {withCredentials: true})
-        //const json: { data: ChartData[] } = await res.json();
         setLoading(false)
         return res.data
     } catch (error) {

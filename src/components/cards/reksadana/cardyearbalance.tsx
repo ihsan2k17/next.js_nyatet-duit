@@ -1,28 +1,28 @@
 import { CardData } from '@/models/icards'
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BiCreditCardAlt, BiMoney } from 'react-icons/bi'
 import { BsBank2 } from 'react-icons/bs'
-import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa'
-import { FaCreditCard, FaWallet } from 'react-icons/fa6'
+import { FaCheckCircle, FaCreditCard, FaTimesCircle, FaWallet } from 'react-icons/fa'
 import { GiMicrochip, GiPayMoney } from 'react-icons/gi'
+import { LiaMicrochipSolid } from 'react-icons/lia'
 
 interface CardBalanceProps {
-    sumMonthPerPortfolio: number
+    sumYearPerPortfolio: number
     smallwidth: boolean
     loading: boolean
     card: CardData[]
     alert : string
 }
 
-const CardMonthBalance = ({sumMonthPerPortfolio,smallwidth, loading, card, alert }: CardBalanceProps) => {
+const CardYearBalance = ({sumYearPerPortfolio,smallwidth, loading, card, alert}:CardBalanceProps) => {
     const [currentIndex, setCurrentIndex] = useState(0)
     useEffect(() => {
         if (card.length === 0) return
         const interval = setInterval(() => {
-          setCurrentIndex((prev) => (prev + 1) % card.length)
+            setCurrentIndex((prev) => (prev + 1) % card.length)
         }, 10000) // 10 detik
         return () => clearInterval(interval)
-      }, [card])
+        }, [card])
     const activeCard = card[currentIndex]
     
     const LoadingText = ({ text }: { text: string }) => {
@@ -65,7 +65,7 @@ const CardMonthBalance = ({sumMonthPerPortfolio,smallwidth, loading, card, alert
         <div
             className={`
             relative ${smallwidth ? "w-full" : "w-[35%]"}
-            bg-gradient-to-br from-indigo-500 via-indigo-700 to-purple-900
+            bg-gradient-to-br from-cyan-400 via-indigo-500 to-blue-900
             rounded-2xl 
             shadow-2xl 
             p-6 
@@ -116,14 +116,14 @@ const CardMonthBalance = ({sumMonthPerPortfolio,smallwidth, loading, card, alert
 
             {/* Chip emas */}
             <div className="flex items-center mt-2 relative z-10">
-                <GiMicrochip className="text-8xl drop-shadow-lg rotate-75" />
+                <LiaMicrochipSolid className="text-8xl drop-shadow-lg" />
             </div>
 
             {/* Balance */}
             <div className="mb-5 relative z-10">
-                <p className="text-[1rem] font-bold opacity-80">Total Balance Month</p>
+                <p className="text-[1rem] font-semi-bold opacity-80">Total Balance Year</p>
                 <h2 className="text-3xl font-bold tracking-wide drop-shadow-md">
-                    Rp {sumMonthPerPortfolio.toLocaleString("id-ID")}
+                    Rp {sumYearPerPortfolio.toLocaleString("id-ID")}
                 </h2>
             </div>
 
@@ -138,8 +138,6 @@ const CardMonthBalance = ({sumMonthPerPortfolio,smallwidth, loading, card, alert
             </div>
         </div>
     )
-
-
 }
 
-export default CardMonthBalance
+export default CardYearBalance
