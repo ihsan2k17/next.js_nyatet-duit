@@ -1,15 +1,11 @@
 'use client'
 
 import useIsSmallWidth from '@/hooks/issmallwidth';
-import { ChartData } from '@/models/ichartsportfoliord';
+import { transformData } from '@/hooks/services/fetchcharts';
+import { ChartData, TransformedData } from '@/models/ichartsportfoliord';
 import React, { useEffect, useState } from 'react'
 import { Bar, BarChart, Brush, CartesianGrid, Legend, RectangleProps, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
-// Struktur data setelah ditransformasi biar cocok sama Recharts
-interface TransformedData {
-  bulan: string; 
-  [portfolio: string]: string | number; 
-}
 
 // Custom props untuk bar chart
 interface cusbarProps extends RectangleProps {
@@ -17,26 +13,6 @@ interface cusbarProps extends RectangleProps {
   fill?: string;
 }
 
-// Transform raw API data → bentuk sesuai untuk Recharts
-function transformData(raw: ChartData[]): TransformedData[] {
-  const grouped: Record<string, TransformedData> = {};
-
-  for (let i = 0; i < raw.length; i++) {
-    const item = raw[i];
-    const key = `${item.bulan}/${item.tahun}`;
-
-    // Kalau bulan belum ada, inisialisasi dulu
-    if (!grouped[key]) {
-      grouped[key] = { bulan: key };
-    }
-
-    // Masukin portfolio + nominal ke bulan tsb
-    grouped[key][item.portfolio] = item.nominal_uang;
-  }
-
-  // Balikin hasil dalam bentuk array
-  return Object.values(grouped);
-}
 
 const ChartsReksadana = () => {
   // State buat nyimpen data chart
@@ -167,7 +143,14 @@ const ChartsReksadana = () => {
             <Brush dataKey="bulan" height={30} stroke="#8884d8"/>
 
             {/* Sumbu Y → angka, diformat jadi compact (1K, 1M, dst) */}
-            <YAxis tickFormatter={(value => new Intl.NumberFormat("id-ID",{notation:"compact", maximumFractionDigits:1}).format(value))}/>
+            <YAxis 
+              tickFormatter={(
+                value => new Intl.NumberFormat("id-ID",{
+                  notation:"compact", 
+                  maximumFractionDigits:1}).
+                format(value)
+              )
+            }/>
 
             {/* Tooltip saat hover */}
             <Tooltip 

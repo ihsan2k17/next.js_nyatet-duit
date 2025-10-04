@@ -1,11 +1,12 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import LayoutDesktop from './layoutdesktop'
 import LayoutMobile from './layoutmobile'
 import { useRouter } from 'next/navigation'
 import axios, { AxiosError } from 'axios'
 import useIsMobile from '@/hooks/ismobile'
+import Loading40 from '@/components/animations/loading40'
 
 interface ILayoutClient {
     children: React.ReactNode,
@@ -18,13 +19,16 @@ const LayoutClient = ({children}:ILayoutClient) => {
     const [alertMessage, setAlertMessage] = useState('')
     const [isCollapsed, setIsCollapsed] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [mounted, setIsmounted] = useState(false)
 
     const handleNav = () => {
         setLoading(true)
         router.push ("/login")
         
     }
-
+    useEffect(() => {
+        setIsmounted(true)
+    },[])
     const handleLogout = async () => {
         try{
             setLoading(true)
@@ -43,9 +47,16 @@ const LayoutClient = ({children}:ILayoutClient) => {
                 setLoading(false)
                 setAlertLogout(true);
             }
+        } finally {
+            setLoading(false)
         }
     }
-
+    
+    if(!mounted ) return (
+        <div className="h-screen w-full flex items-center justify-center bg-gray-200">
+            <Loading40 />
+        </div>
+    )
     return isMobile ? 
         <div className={`${loading ? "bg-black/40":"bg-transparent"}`}>
             <LayoutMobile 

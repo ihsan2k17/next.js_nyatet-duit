@@ -6,3 +6,7 @@ export interface ChartData {
   nama_sekuritas: string;  // nama sekuritas
   portfolio: string;       // nama portfolio (contoh: Dana Ihsan)
 }
+export interface TransformedData {
+  bulan: string; 
+  [portfolio: string]: string | number; 
+}

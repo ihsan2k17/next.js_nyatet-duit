@@ -34,7 +34,7 @@ const LayoutMobile = ({children, handleNav, alertLogout, setAlertLogout, alertMe
     }, [pathname, parents, childrens])
 
     return (
-        <div className={`relative h-screen w-full overflow-hidden`}>
+        <div className={`relative h-screen w-full flex flex-col`}>
              <header className="bg-button-primary p-4 flex items-center justify-between">
                 <button
                     className="w-8 h-8 text-white"
@@ -44,7 +44,7 @@ const LayoutMobile = ({children, handleNav, alertLogout, setAlertLogout, alertMe
                 </button>
                 <h1 className="text-white font-bold text-lg">{activeMenuName}</h1>
             </header>
-            <main>
+            <main className="flex-1 overflow-auto">
                 <Drawer
                     openDrawer={openDrawer}
                     handleClose={() => setOpenDrawer(false)}

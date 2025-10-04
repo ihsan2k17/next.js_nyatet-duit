@@ -1,17 +1,28 @@
 'use client'
 import useIsMobile from '@/hooks/ismobile'
-import { useScroll } from 'framer-motion'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PortfolioDesktop from './portfoliodesktop'
+import PortfolioMobile from './portfoliomobile'
 
 const PortfolioClient = () => {
     const isMobile = useIsMobile()
     const [loading, setLoading] = useState(false)
-    return !isMobile ? 
-    <div className={`${loading ? "cursor-progress":"cursor-auto"}`}>
-        <PortfolioDesktop />
-    </div> :
-    <div></div>
+
+    // contoh simulasi loading
+    useEffect(() => {
+        setLoading(true) 
+        const timer = setTimeout(() => {
+            setLoading(false) // setelah 2 detik loading selesai
+        }, 2000)
+
+        return () => clearTimeout(timer)
+    }, [])
+
+    return (
+        <div className={`${loading ? "cursor-progress" : "cursor-auto"}`}>
+            {isMobile ? <PortfolioMobile /> : <PortfolioDesktop />}
+        </div>
+    )
 }
 
 export default PortfolioClient

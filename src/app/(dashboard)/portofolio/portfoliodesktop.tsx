@@ -1,7 +1,5 @@
 'use client'
-import ChildCardReksadana from '@/components/cards/reksadana/ccreksadana'
 import ParentCardReksadana from '@/components/cards/reksadana/pcreksadana'
-import useIsSmallWidth from '@/hooks/issmallwidth'
 import React, { useState } from 'react'
 import { unstable_ViewTransition as ViewTransition } from 'react'
 
@@ -11,7 +9,6 @@ interface PDProps {
 
 const PortfolioDesktop = ({}: PDProps) => {
     const [activeTab, setActiveTab] = useState("reksadana")
-    const smallwidth = useIsSmallWidth()
 
     return (
         <div className={`flex flex-col`}>

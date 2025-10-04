@@ -1,3 +1,4 @@
+import { ChartData, TransformedData } from "@/models/ichartsportfoliord";
 import axios from "axios";
 import { Dispatch, SetStateAction } from "react";
 
@@ -20,4 +21,25 @@ export const fetchDatacharts = async (
             setalert("Server error, coba lagi nanti")
         }
     }
+}
+
+// Transform raw API data → bentuk sesuai untuk Recharts
+export const transformData = (raw: ChartData[]) :TransformedData[] => {
+    const grouped: Record<string, TransformedData> = {};
+
+    for (let i = 0; i < raw.length; i++) {
+        const item = raw[i];
+        const key = `${item.bulan}/${item.tahun}`;
+
+        // Kalau bulan belum ada, inisialisasi dulu
+        if (!grouped[key]) {
+        grouped[key] = { bulan: key };
+        }
+
+        // Masukin portfolio + nominal ke bulan tsb
+        grouped[key][item.portfolio] = item.nominal_uang;
+    }
+
+    // Balikin hasil dalam bentuk array
+    return Object.values(grouped);
 }
