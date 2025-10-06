@@ -13,7 +13,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
-import MSumPortfolio from '../slides/msumportfolio'
+import MSumPortfolio from '../cards/reksadana/mobile/cardsumportfolio'
 
 const ChartMobileReksadana = () => {
     const [data, setData] = useState<TransformedData[]>([])
