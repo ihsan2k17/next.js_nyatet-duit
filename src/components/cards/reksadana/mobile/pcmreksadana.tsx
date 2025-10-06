@@ -1,6 +1,5 @@
 import React from 'react'
 import ChildCardMobileReksadana from './ccmreksadana'
-import ChartsReksadana from '@/components/charts/chreksadana'
 import ChartMobileReksadana from '@/components/charts/chmreksadana'
 
 interface pcrdProps {
@@ -10,10 +9,10 @@ interface pcrdProps {
 const ParentCardMobileReksadana = ({activeTab}: pcrdProps) => {
     return (
         <div className={`
-            flex flex-col gap-2`}>
-            <div>
-                <ChartMobileReksadana />
-            </div>
+            flex flex-col gap-3 
+            shadow transition-transform duration-500
+            ${activeTab === 'reksadana' ? 'translate-x-0':'-translate-x-full'}`}>
+            <ChartMobileReksadana />
             <div>
                 <ChildCardMobileReksadana />
             </div>

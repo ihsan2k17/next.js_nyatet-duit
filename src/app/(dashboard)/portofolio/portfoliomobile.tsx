@@ -42,7 +42,7 @@ const PortfolioMobile = () => {
             </div>
             {/* Konten */}
             <ViewTransition>
-                <div className="pt-2 w-full px-4">
+                <div className="pt-2 w-full px-2">
                     {activeTab === 'reksadana' && (
                     <ParentCardMobileReksadana activeTab={activeTab} />
                     )}
