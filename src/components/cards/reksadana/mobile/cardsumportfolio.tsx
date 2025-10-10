@@ -28,19 +28,19 @@ const MSumPortfolio = ({ sumPerPortfolio, countProduct }: Props) => {
                     <div className="absolute -bottom-2 -left-2 w-6 h-6 bg-white/20 rounded-full blur-lg"></div>
 
                     {/* content */}
-                    <div className="relative text-white flex flex-col py-2 justify-center h-full">
-                        <div className="flex items-center justify-between">
+                    <div className="relative text-white flex flex-col justify-center h-full">
+                        <div className="flex pt-1 items-center justify-between">
                             <span className="text-xs font-semibold drop-shadow-md">{portfolio}</span>
                             <FiTrendingUp className="w-4 h-4 text-white/80" />
                         </div>
-                            <span className="mt-1 text-sm font-bold drop-shadow-lg">
+                            <span className="text-sm font-bold drop-shadow-lg">
                             {total.toLocaleString("id-ID", {
                                 style: "currency",
                                 currency: "IDR",
                                 minimumFractionDigits: 0,
                             })}
                             </span>
-                            <span className="text-[10px] mt-4 text-white/90 drop-shadow-sm">
+                            <span className="text-[10px] mt-3 text-white/90 drop-shadow-sm">
                                 Products: {productCount}
                             </span>
                         </div>

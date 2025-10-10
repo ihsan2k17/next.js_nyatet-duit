@@ -63,30 +63,31 @@ const PortfolioMobile = () => {
                     fixed 
                     bottom-0 
                     flex 
-                    flex-row 
                     justify-center 
                     items-center 
-                    w-full pb-4 gap-4
+                    w-full pb-4 p-2
                     transition-transform duration-300 ${
                 hidden ? 'translate-y-full' : 'translate-y-0'
                 }`}
             >
-                <button 
-                    onClick={() => {setActiveTab("reksadana")}}
-                    className={`flex-1 p-2 text-center cursor-pointer rounded
-                        ${activeTab === "reksadana" ? 
-                            "border-2 bg-button-primary text-white font-bold rounded":
-                            "text-button-primary font-bold"}`}>
-                    Reksadana
-                </button>
-                <button
-                    onClick={() => {setActiveTab("saham")}}
-                    className={`flex-1 p-2 text-center cursor-pointer rounded
-                        ${activeTab === "saham" ? 
-                            "border-2 bg-button-primary text-white font-bold rounded":
-                            "text-button-primary font-bold"}`}>
-                    Saham
-                </button>
+                <div className='flex flex-row bg-white rounded w-full'>
+                    <button 
+                        onClick={() => {setActiveTab("reksadana")}}
+                        className={`flex-1 p-2 text-center cursor-pointer rounded
+                            ${activeTab === "reksadana" ? 
+                                "border-2 bg-button-primary text-white font-bold rounded":
+                                "text-button-primary font-bold"}`}>
+                        Reksadana
+                    </button>
+                    <button
+                        onClick={() => {setActiveTab("saham")}}
+                        className={`flex-1 p-2 text-center cursor-pointer rounded
+                            ${activeTab === "saham" ? 
+                                "border-2 bg-button-primary text-white font-bold rounded":
+                                "text-button-primary font-bold"}`}>
+                        Saham
+                    </button>
+                </div>
             </div>
         </div>
     )
