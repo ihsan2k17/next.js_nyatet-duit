@@ -35,7 +35,7 @@ const LayoutMobile = ({children, handleNav, alertLogout, setAlertLogout, alertMe
 
     return (
         <div className={`relative h-screen w-full flex flex-col`}>
-             <header className="bg-button-primary p-4 flex items-center justify-between">
+            <header className="bg-button-primary p-4 flex items-center justify-between">
                 <button
                     className="w-8 h-8 text-white"
                     onClick={() => setOpenDrawer(true)}

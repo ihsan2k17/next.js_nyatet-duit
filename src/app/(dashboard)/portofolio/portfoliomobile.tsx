@@ -1,6 +1,7 @@
 'use client'
 
 import ParentCardMobileReksadana from '@/components/cards/reksadana/mobile/pcmreksadana'
+import { motion, AnimatePresence } from 'framer-motion'
 import React, { useEffect, useState, useRef } from 'react'
 import { unstable_ViewTransition as ViewTransition } from 'react'
 
@@ -9,7 +10,7 @@ const PortfolioMobile = () => {
     const [lastScroll, setLastScroll] = useState(0)
     const scrollContainerRef = useRef<HTMLDivElement>(null)
     const [activeTab, setActiveTab] = useState("reksadana")
-
+    const [direction, setDirection] = useState(1)
     useEffect(() => {
         const handleScroll = () => {
         const container = scrollContainerRef.current
@@ -30,30 +31,61 @@ const PortfolioMobile = () => {
 
         return () => container?.removeEventListener('scroll', handleScroll)
     }, [lastScroll])
-
+    const variants = {
+        enter: (direction: number) => ({
+        x: direction > 0 ? 100 : -100,
+        opacity: 0,
+        }),
+        center: {
+        x: 0,
+        opacity: 1,
+        },
+        exit: (direction: number) => ({
+        x: direction > 0 ? -100 : 100,
+        opacity: 0,
+        }),
+    }
     return (
         <div
             ref={scrollContainerRef}
-            className="w-full h-screen overflow-auto bg-gray-50 relative"
+            className="w-full h-screen overflow-auto relative"
             >
             {/* HEADER KONTEN */}
             <div className="text-xl font-bold pb-4 text-button-primary w-full">
                 <h1 className={`text-center`}>Nilai Portfolio Yang Lu Punya</h1>
             </div>
             {/* Konten */}
-            <ViewTransition>
+            <AnimatePresence mode="wait" custom={direction}>   
                 <div className="pt-2 w-full px-2">
                     {activeTab === 'reksadana' && (
-                    <ParentCardMobileReksadana activeTab={activeTab} />
+                    <motion.div 
+                        key="reksadana"
+                        custom={direction}
+                        variants={variants}
+                        initial="enter"
+                        animate="center"
+                        exit="exit"
+                        transition={{duration:0.25, ease: 'easeInOut'}}>
+                            <ParentCardMobileReksadana activeTab={activeTab} />
+                    </motion.div>
                     )}
 
                     {activeTab === 'saham' && (
-                    <div className="flex flex-col items-center justify-center h-full py-10 bg-green-100 rounded-lg shadow">
-                        <p className="text-green-700 font-semibold text-lg">Content Tab Saham</p>
-                    </div>
+                    <motion.div
+                        key="saham"
+                        custom={direction}
+                        variants={variants}
+                        initial="enter"
+                        animate="center"
+                        exit="exit"
+                        transition={{duration:0.25, ease: 'easeInOut'}}>
+                        <div className="flex flex-col items-center justify-center h-full py-10 bg-green-100 rounded-lg shadow">
+                            <p className="text-green-700 font-semibold text-lg">Content Tab Saham</p>
+                        </div>
+                    </motion.div>
                     )}
                 </div>
-            </ViewTransition>
+            </AnimatePresence>
             {/* Spacer supaya konten terakhir gak ketutup */}
             <div className="h-20"></div>
 
@@ -72,7 +104,9 @@ const PortfolioMobile = () => {
             >
                 <div className='flex flex-row bg-white rounded w-full'>
                     <button 
-                        onClick={() => {setActiveTab("reksadana")}}
+                        onClick={() => {
+                            setDirection(-1) 
+                            setActiveTab("reksadana")}}
                         className={`flex-1 p-2 text-center cursor-pointer rounded
                             ${activeTab === "reksadana" ? 
                                 "border-2 bg-button-primary text-white font-bold rounded":
@@ -80,7 +114,9 @@ const PortfolioMobile = () => {
                         Reksadana
                     </button>
                     <button
-                        onClick={() => {setActiveTab("saham")}}
+                        onClick={() => {
+                            setDirection(1)
+                            setActiveTab("saham")}}
                         className={`flex-1 p-2 text-center cursor-pointer rounded
                             ${activeTab === "saham" ? 
                                 "border-2 bg-button-primary text-white font-bold rounded":
