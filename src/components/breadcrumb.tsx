@@ -6,25 +6,32 @@ import { FaArrowRight } from 'react-icons/fa6'
 
 const Breadcrumbs = () => {
     const pathname = usePathname()
-    const segment = pathname.split('/').filter(Boolean)
+    const segments = pathname.split('/').filter(Boolean)
     return (
-        <nav className={`flex flex-row items-center justify-between text-sm font-bold    text-button-primary space-x-1`}>
-            {segment.map((segments, idx) => {
-                const href = '/' + segment.slice(0, idx + 1).join('/')
-                const isLast = idx === segment.length - 1
+        <nav className="flex flex-wrap items-center text-sm font-bold text-button-primary">
+            {segments.map((segment, idx) => {
+                const href = '/' + segments.slice(0, idx + 1).join('/')
+                const isLast = idx === segments.length - 1
 
                 return (
-                    <div key={href} className={`flex items-center`}>
-                        {isLast ? (
-                            <Link href={href} className={`hover:underline capitalize`}>
-                                {segments}
-                            </Link>
-                        ): ( <span className={`font-semibold capitalize`}>{segments}</span>)}
-                        {isLast && <span className={`mx-1 text-button-primary`}><FaArrowRight /></span>}
-                    </div>
+                <div key={href} className="flex items-center">
+                    {!isLast ? (
+                    <>
+                        <Link
+                        href={href}
+                        className="hover:underline capitalize"
+                        >
+                        {segment}
+                        </Link>
+                        <FaArrowRight className="mx-2 text-button-primary text-xs" />
+                    </>
+                    ) : (
+                    <span className="capitalize text-gray-500">{segment}</span>
+                    )}
+                </div>
                 )
             })}
-        </nav>  
+        </nav>
     )
 }
 

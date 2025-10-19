@@ -102,7 +102,7 @@ const ChartMobileReksadana = () => {
         <div className="relative w-full flex flex-col gap-2 ">
             {alert && (
                 <div className="absolute top-2 left-1/2 -translate-x-1/2 bg-red-500 text-white text-xs px-3 py-1.5 rounded-full shadow-md z-10">
-                {alert}
+                    {alert}
                 </div>
             )}
             <div className={`w-full relative min-h-[220px]`}>
@@ -161,7 +161,7 @@ const ChartMobileReksadana = () => {
                     </AreaChart>
                 </ResponsiveContainer>
             </div>
-            {/* 🔵 Tombol Range */}
+            {/* Tombol Range */}
             <div className="top-1 left-2 z-10 flex flex-wrap gap-1.5 w-full justify-center">
                 {['ALL', '5Y', '3Y', '1Y', '3M', '1M','1W','1D'].map((r) => (
                 <button

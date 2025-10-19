@@ -4,6 +4,7 @@ import { BiCreditCardAlt, BiMoney } from 'react-icons/bi'
 import { BsBank2 } from 'react-icons/bs'
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa'
 import { FaCreditCard, FaWallet } from 'react-icons/fa6'
+import { FcSimCardChip } from 'react-icons/fc'
 import { GiMicrochip, GiPayMoney } from 'react-icons/gi'
 
 interface CardBalanceProps {

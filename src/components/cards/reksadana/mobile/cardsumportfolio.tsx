@@ -11,7 +11,7 @@ const MSumPortfolio = ({ sumPerPortfolio, countProduct }: Props) => {
     const items = Object.entries(sumPerPortfolio);
 
     return (
-        <div className="w-full py-6 bg-gray-50">
+        <div className="w-full py-6">
             <div className="grid grid-cols-2 sm:grid-cols-2 gap-3 px-3">
                 {items.map(([portfolio, total], idx) => {
                 const productCount = countProduct[portfolio] || 0

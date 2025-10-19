@@ -1,6 +1,6 @@
 'use client'
 
-import React, { Dispatch, SetStateAction } from 'react'
+import React, { Dispatch, SetStateAction, useState } from 'react'
 import { IoExitSharp, IoMenuOutline } from 'react-icons/io5'
 import MenuItems from '../menus/menuitems'
 
@@ -15,6 +15,7 @@ const SideBar = ({isCollapse, setIsCollapse, handleLogout}: ISidebarProps) => {
     const toogleSidebar = () => {
         setIsCollapse(!isCollapse)
     }
+    const [loadingMenuId, setLoadingMenuId] = useState<number | null>(null)
     return (
         <div className={`
             bg-button-primary 
@@ -37,7 +38,10 @@ const SideBar = ({isCollapse, setIsCollapse, handleLogout}: ISidebarProps) => {
                 </span>
             </button>
             <div className='flex h-[45%]'>
-                <MenuItems isCollapsed= {isCollapse} />
+                <MenuItems 
+                    isCollapsed= {isCollapse} 
+                    loadingMenuId={loadingMenuId} 
+                    setLoadingMenuId={setLoadingMenuId}/>
             </div>
             <div className={`flex flex-row h-[45%] items-end py-4`}>
                 <div className={`flex items-center justify-start gap-8 px-4 py-2 

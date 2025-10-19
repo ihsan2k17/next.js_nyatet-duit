@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import axios, { AxiosError } from 'axios'
 import useIsMobile from '@/hooks/ismobile'
 import Loading40 from '@/components/animations/loading40'
+import dynamic from 'next/dynamic'
 
 interface ILayoutClient {
     children: React.ReactNode,
@@ -26,6 +27,9 @@ const LayoutClient = ({children}:ILayoutClient) => {
         router.push ("/login")
         
     }
+    const Loading40 = dynamic(() => import('@/components/animations/loading40'), {
+        ssr: false, // skip server-side rendering
+    })
     useEffect(() => {
         setIsmounted(true)
     },[])

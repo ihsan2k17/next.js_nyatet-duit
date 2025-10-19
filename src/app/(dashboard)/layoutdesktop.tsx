@@ -35,9 +35,9 @@ const LayoutDesktop = ({
                         ${isCollapsed ? "ml-16 w-[calc(100%-4rem)]":"ml-64 w-[calc(100%-16rem)]"}
                     `}
                 >
-                    <header className={`p-3 sticky top-0 text-white`}>
+                    <div className={`p-3 top-0 text-white`}>
                         <Breadcrumbs />
-                    </header> 
+                    </div> 
                     {children}
                 </main>
                 {alertLogout && (

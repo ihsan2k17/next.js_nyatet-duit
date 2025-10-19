@@ -13,7 +13,9 @@ const NavbarStarted = ({handleClick}: INavbar) => {
                 <div className="flex-col h-18 max-w-[16%] z-50">
                     <Image src={paperplane} alt="paper plane for freepik" width={200} height={200} className="w-lg h-max" priority/>
                 </div> 
-                <button className="flex p-4 max-h-15 cursor-pointer bg-button-primary hover:bg-button-secondary text-white rounded-2xl font-black font-ubuntu text-xl" onClick={handleClick}>
+                <button 
+                    className="flex p-4 max-h-15 cursor-pointer bg-button-primary hover:bg-button-secondary text-white rounded-2xl font-black font-ubuntu text-xl" 
+                    onClick={handleClick}>
                     Get Started
                 </button>
             </div>

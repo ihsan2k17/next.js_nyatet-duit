@@ -5,6 +5,8 @@ import { transformData } from '@/hooks/services/fetchcharts';
 import { ChartData, TransformedData } from '@/models/ichartsportfoliord';
 import React, { useEffect, useState } from 'react'
 import { Bar, BarChart, Brush, CartesianGrid, Legend, RectangleProps, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import MSumPortfolio from '../cards/reksadana/mobile/cardsumportfolio';
+import DSumPortfolio from '../cards/reksadana/cardsumportfolio';
 
 
 // Custom props untuk bar chart
@@ -24,7 +26,7 @@ const ChartsReksadana = () => {
 
   // Total akumulasi per portfolio
   const [sumPerPortfolio, setSumPerPortfolio] = useState<Record<string, number>>({});
-
+  const [countProduct, setCountProduct] = useState<Record<string,number>>({});
   // Hook custom → cek apakah layar kecil atau gede
   const smallwidth = useIsSmallWidth();
 
@@ -52,6 +54,16 @@ const ChartsReksadana = () => {
             return acc;
           }, {});
           setSumPerPortfolio(sum);
+          const map: Record<string, Set<string>> = {};
+            json.data.forEach(item => {
+            if (!map[item.portfolio]) map[item.portfolio] = new Set();
+            map[item.portfolio].add(item.nama_sekuritas);
+            });
+            const countProduct: Record<string, number> = {};
+            Object.keys(map).forEach(portfolio => {
+            countProduct[portfolio] = map[portfolio].size;
+            });
+            setCountProduct(countProduct);
         }
       } catch (err) {
         console.error("Gagal fetch chart data:", err);
@@ -114,7 +126,8 @@ const ChartsReksadana = () => {
       }
     >
       {/* Total per portfolio */}
-      <div className={`flex flex-wrap gap-3`}>
+      <DSumPortfolio sumPerPortfolio={sumPerPortfolio} countProduct={countProduct}/>
+      {/* <div className={`flex flex-wrap gap-3`}>
         {Object.entries(sumPerPortfolio).map(([portfolio, total]) => (
           <div key={portfolio} className="flex justify-between gap-2 text-center items-center">
             <span className="font-medium">{portfolio} : </span>
@@ -127,7 +140,7 @@ const ChartsReksadana = () => {
             </span>
           </div>
         ))}
-      </div>
+      </div> */}
 
       {/* Chart section */}
       <div className={`${smallwidth ? "h-[40rem]" : "h-[35rem]"} w-full`}>
