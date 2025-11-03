@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FiTrendingUp} from "react-icons/fi";
 
 interface Props {
-  sumPerPortfolio: Record<string, number>;
+  sumNamePerPortfolio: Record<string,number>;
   countProduct: Record<string, number>
 }
 
 
-const MSumPortfolio = ({ sumPerPortfolio, countProduct }: Props) => {
-    const items = Object.entries(sumPerPortfolio);
+const MSumPortfolio = ({ sumNamePerPortfolio, countProduct }: Props) => {
+    const items = Object.entries(sumNamePerPortfolio);
 
     return (
         <div className="w-full py-6">

@@ -1,10 +1,11 @@
 "use client"
 
-import React, { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react'
-import Dropdown from '../filters/dropdown';
+import React, {useEffect, useState } from 'react'
+import Dropdown from '../filters/dropdowntable';
 import { Search } from '../filters/search';
 import { ColumnDef, ColumnFiltersState, flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, SortingState, Table, useReactTable } from '@tanstack/react-table';
 import { FiChevronDown, FiChevronLeft, FiChevronRight, FiChevronsLeft, FiChevronsRight, FiChevronUp } from 'react-icons/fi';
+import DropdownTable from '../filters/dropdowntable';
 
 interface TableProps<TData> {
 
@@ -48,7 +49,7 @@ const TableDesktop = <TData,>(
             <div className={'flex justify-between items-center'}>
                 <div className={`flex items-center gap-2 text-button-primary p-2`}>
                     <span className={`text-sm font-bold`}>Show</span>
-                    <Dropdown
+                    <DropdownTable
                         options={[10, 20, 50, 100, "All"]}
                         value={pagination.pageSize === data.length ? "All" : pagination.pageSize}
                         onChange={(val) => {

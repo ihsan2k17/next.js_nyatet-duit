@@ -36,8 +36,7 @@ export const handleGoogleLogin = (
   setAlertMessage: Dispatch<SetStateAction<string>>,
   setAlertErrorLogin: Dispatch<SetStateAction<boolean>>,
   setAlertErrorMessage: Dispatch<SetStateAction<string>>,
-  setLoading: Dispatch<SetStateAction<boolean>>,
-  username: string
+  setLoading: Dispatch<SetStateAction<boolean>>
 ) => useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       try {
@@ -49,7 +48,7 @@ export const handleGoogleLogin = (
               Authorization: `Bearer ${tokenResponse.access_token}`,
             },
           }
-        );
+        )
         if(userInfo) {
           const cek = await axios.post("/api/auth/google",{
             username: userInfo.email,
@@ -59,9 +58,11 @@ export const handleGoogleLogin = (
           setLoading(true)
           if(cek.status === 200) {
             try {
-              const res = await axios.post("/api/login",{username,
-                password:process.env.NEXT_PUBLIC_GOOGLE_RANDOM_PASSWORD || "123221"}, {withCredentials: true}
-              )
+              const password = process.env.NEXT_PUBLIC_GOOGLE_RANDOM_PASSWORD || "123221"
+              const res = await axios.post("/api/login", {
+                username:userInfo.email,
+                password:password
+              }, {withCredentials: true})
               setAlertLogin(true)
               setLoading(false)
               setAlertMessage(res.data.message);
@@ -75,6 +76,8 @@ export const handleGoogleLogin = (
                 setLoading(false)
                 setAlertMessage("Server error, coba lagi nanti")
               }
+            } finally{
+              setLoading(false)
             }
           }
         }
@@ -82,6 +85,8 @@ export const handleGoogleLogin = (
         const errorMessage = err instanceof Error ? err.message : String(err);
         setAlertErrorMessage(`Gagal ambil user info: ${errorMessage}`);
         setAlertErrorLogin(true);
+      } finally{
+        setLoading(false)
       }
     },
     onError: () => {

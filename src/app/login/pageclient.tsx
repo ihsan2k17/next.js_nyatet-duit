@@ -30,8 +30,7 @@ const LoginPageClient = () => {
     setAlertMessage, 
     setAlertErrorLogin, 
     setAlertErrorMessage,
-    setLoading,
-    username
+    setLoading
   )
 
   const googleRegis = handleGoogleRegis(
@@ -48,7 +47,9 @@ const LoginPageClient = () => {
 
   return isMobile ?
     <LoginMobile 
-      handleLogin={() => handleLogin(username, password, setAlertLogin, setAlertMessage,setLoading)} handleGoogleLogin={googleLogin}
+      handleLogin={() => 
+        handleLogin(username, password, setAlertLogin, setAlertMessage,setLoading)} 
+        handleGoogleLogin={googleLogin}
       handleRegister={() => handleRegister(
         setAlertRegis, setAlertMessage,setAlertErrorLogin,setAlertErrorMessage,
         username,password,name,email, setLoading)} 

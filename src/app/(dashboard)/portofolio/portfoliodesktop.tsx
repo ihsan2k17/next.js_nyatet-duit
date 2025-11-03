@@ -3,7 +3,6 @@ import ParentCardReksadana from '@/components/cards/reksadana/pcreksadana'
 import { AnimatePresence, motion } from 'framer-motion'
 import React, { useState } from 'react'
 
-import { unstable_ViewTransition as ViewTransition } from 'react'
 
 interface PDProps {
     

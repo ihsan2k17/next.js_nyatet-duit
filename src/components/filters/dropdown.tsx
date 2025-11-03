@@ -1,43 +1,72 @@
-import { AnimatePresence, motion } from 'framer-motion';
-import React, { useEffect, useRef, useState } from 'react'
-import { FiChevronDown } from 'react-icons/fi';
+"use client";
+import { AnimatePresence, motion } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import { FiChevronDown } from "react-icons/fi";
 
-interface dropdownprops {
-    options: (string | number)[];
-    value?: string | number;
-    placeholder?: string;
-    onChange: (value: string | number) => void;
-    width?: string;
+export interface DropdownProps<T> {
+  label?: string;
+  options: T[];
+  value?: string | number;
+  placeholder?: string;
+  onChange: (value: string | number, item: T) => void;
+  width?: string;
+  /** nama properti untuk text display */
+  textField: keyof T;
+  /** nama properti untuk value */
+  valueField: keyof T;
 }
 
-const Dropdown = ({
-    options,
-    value,
-    placeholder,
-    onChange,
-    width
-}: dropdownprops) => {
-    const [open, setOpen] = useState(false);
-    const dropdownRef = useRef<HTMLDivElement>(null);
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-                setOpen(false);
-            }};
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
-    return (
-        <div className={`relative ${width}`} ref={dropdownRef}>
+const Dropdown = <T,>({
+  label,
+  options,
+  value,
+  placeholder,
+  onChange,
+  width,
+  textField,
+  valueField,
+}: DropdownProps<T>) => {
+  const [open, setOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const selectedOption = options.find(
+    (opt) => opt[valueField]?.toString() === value?.toString()
+  );
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  return (
+    <div className={`relative ${width || "w-full"}`} ref={dropdownRef}>
+        {label && (
+            <label className="block mb-1 text-sm font-medium text-gray-700">
+            {label}
+            </label>
+        )}
             {/* BUTTON */}
             <button
+                type="button"
                 onClick={() => setOpen((prev) => !prev)}
                 className="flex items-center justify-between w-full border rounded-xl px-3 py-2
                         text-sm font-medium shadow-sm bg-white hover:border-indigo-400
                         transition-all duration-200 focus:ring-2 focus:ring-indigo-400 cursor-pointer"
             >
-                <span className="truncate">
-                    {value ? value : <span className="text-indigo-400">{placeholder}</span>}
+                <span className="leading-none relative p-2 truncate text-center -top-[2px]">
+                    {selectedOption ? (
+                        String(selectedOption[textField])
+                    ) : (
+                        <span className="text-indigo-400">{placeholder}</span>
+                    )}  
                 </span>
                 <motion.div
                     animate={{ rotate: open ? 180 : 0 }}
@@ -63,17 +92,17 @@ const Dropdown = ({
                         <div
                         key={i}
                         onClick={() => {
-                            onChange(opt);
+                            onChange(opt[valueField] as string | number, opt);
                             setOpen(false);
                         }}
-                        className={`px-3 py-2 text-sm cursor-pointer transition-colors duration-150 
+                        className={`px-3 py-2 text-sm text-center transition-colors duration-150 
                             ${
-                            opt === value
+                            opt[valueField]?.toString() === value?.toString()
                                 ? "bg-indigo-100 text-indigo-600 font-semibold"
                                 : "hover:bg-indigo-50 text-gray-700"
                             }`}
                         >
-                        {opt}
+                        {String(opt[textField])}
                         </div>
                     ))}
                     </div>
@@ -82,7 +111,6 @@ const Dropdown = ({
             </AnimatePresence>
         </div>
     );
-    
-}
+};
 
-export default Dropdown
+export default Dropdown;

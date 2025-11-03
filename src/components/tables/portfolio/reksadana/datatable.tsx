@@ -9,15 +9,14 @@ import {
   flexRender,
   ColumnDef,
   SortingState,
-  ColumnFiltersState,
-  Table,
+  ColumnFiltersState
 } from '@tanstack/react-table'
 import { IDataTableRD } from '@/models/idatatablerd'
 import Lottie from 'lottie-react'
 import loadingAnim from '../../../../../public/lottie/Loading40_Paperplane.json'
 import { fetchDataReksadana } from '@/hooks/services/fetchdatatablerd'
 import { FiChevronDown, FiChevronUp, FiEdit2, FiSearch, FiTrash2 } from 'react-icons/fi'
-import Dropdown from '@/components/filters/dropdown'
+import Dropdown from '@/components/filters/dropdowntable'
 import { Search } from '@/components/filters/search'
 
 

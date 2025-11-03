@@ -1,81 +1,31 @@
 'use client'
 
 import useIsSmallWidth from '@/hooks/issmallwidth';
-import { transformData } from '@/hooks/services/fetchcharts';
-import { ChartData, TransformedData } from '@/models/ichartsportfoliord';
-import React, { useEffect, useState } from 'react'
+import { TransformedData } from '@/models/ichartsportfoliord';
+import React from 'react'
 import { Bar, BarChart, Brush, CartesianGrid, Legend, RectangleProps, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import MSumPortfolio from '../cards/reksadana/mobile/cardsumportfolio';
 import DSumPortfolio from '../cards/reksadana/cardsumportfolio';
 
 
 // Custom props untuk bar chart
-interface cusbarProps extends RectangleProps {
+export interface cusbarProps extends RectangleProps {
   value?: number;
   fill?: string;
 }
 
+interface crprops {
+  data:TransformedData[]
+  loading:boolean
+  portfolios: string[]
+  countProduct:Record<string,number>
+  sumPerPortfolio:Record<string,number>
+}
 
-const ChartsReksadana = () => {
-  // State buat nyimpen data chart
-  const [data, setData] = useState<TransformedData[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  // List portfolio unik (buat legend & warna bar)
-  const [portfolios, setPortfolios] = useState<string[]>([]);
-
-  // Total akumulasi per portfolio
-  const [sumPerPortfolio, setSumPerPortfolio] = useState<Record<string, number>>({});
-  const [countProduct, setCountProduct] = useState<Record<string,number>>({});
+const ChartsReksadana = ({data, loading, 
+  portfolios,countProduct, sumPerPortfolio}:crprops) => {
+  
   // Hook custom → cek apakah layar kecil atau gede
   const smallwidth = useIsSmallWidth();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Ambil data dari API
-        const res = await fetch("/api/portfolio/charts");
-        const json: { data: ChartData[] } = await res.json();
-
-        // Transform biar bisa dimakan Recharts
-        const transformed = transformData(json.data || []);
-        setData(transformed);
-
-        // Ambil nama portfolio unik (biar tau bar apa aja yg muncul)
-        const uniq = Array.from(
-          new Set((json.data || []).map((item: ChartData) => item.portfolio as string))
-        );
-        setPortfolios(uniq);
-
-        // Hitung total nominal per portfolio
-        if (json && Array.isArray(json.data)) {
-          const sum = json.data.reduce((acc: Record<string, number>, item: ChartData) => {
-            acc[item.portfolio] = (acc[item.portfolio] || 0) + item.nominal_uang;
-            return acc;
-          }, {});
-          setSumPerPortfolio(sum);
-          const map: Record<string, Set<string>> = {};
-            json.data.forEach(item => {
-            if (!map[item.portfolio]) map[item.portfolio] = new Set();
-            map[item.portfolio].add(item.nama_sekuritas);
-            });
-            const countProduct: Record<string, number> = {};
-            Object.keys(map).forEach(portfolio => {
-            countProduct[portfolio] = map[portfolio].size;
-            });
-            setCountProduct(countProduct);
-        }
-      } catch (err) {
-        console.error("Gagal fetch chart data:", err);
-      } finally {
-        // Matikan loading state
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
   // Warna buat bar chart (looping sesuai jumlah portfolio)
   const colorPalette = ["#1a2a80", "#3b38a0", "#b2b0e8", "#7a85c1"];
   const portfolioColors: Record<string, string> = {};
@@ -118,7 +68,7 @@ const ChartsReksadana = () => {
 
   // Kalau masih loading → tampilkan teks animasi
   if (loading) return <LoadingText text={'Loading Your Charts, Enjoy Every Moments :)...'} />
-
+  
   return (
     <div
       className={`flex flex-col rounded-2xl 
@@ -127,21 +77,6 @@ const ChartsReksadana = () => {
     >
       {/* Total per portfolio */}
       <DSumPortfolio sumPerPortfolio={sumPerPortfolio} countProduct={countProduct}/>
-      {/* <div className={`flex flex-wrap gap-3`}>
-        {Object.entries(sumPerPortfolio).map(([portfolio, total]) => (
-          <div key={portfolio} className="flex justify-between gap-2 text-center items-center">
-            <span className="font-medium">{portfolio} : </span>
-            <span className={`text-white bg-button-primary rounded px-3 py-2`}>
-              {total.toLocaleString("id-ID", {
-                style: "currency",
-                currency: "IDR",
-                minimumFractionDigits: 0,
-              })}
-            </span>
-          </div>
-        ))}
-      </div> */}
-
       {/* Chart section */}
       <div className={`${smallwidth ? "h-[40rem]" : "h-[35rem]"} w-full`}>
         <ResponsiveContainer>

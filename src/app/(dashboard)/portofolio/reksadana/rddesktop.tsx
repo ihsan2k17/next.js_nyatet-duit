@@ -10,6 +10,7 @@ import { fetchDataReksadana } from '@/hooks/services/fetchdatatablerd'
 import TableDesktop from '@/components/tables/tabledesktop'
 import { FaCheck, FaPlus } from 'react-icons/fa6'
 import { useRouter } from 'next/navigation'
+import CardDesktopNoData from '@/components/cards/cdnodata'
 
 const ReksadanaDesktop = () => {
     const [data, setData] = useState <IDataTableRD[]>([])
@@ -184,6 +185,15 @@ const ReksadanaDesktop = () => {
         <div className="text-center text-red-600 font-semibold py-6">
             Error: {error}
         </div>
+        )
+    }
+
+    if(data.length === 0 ) {
+        return (
+            <CardDesktopNoData 
+                label='Lu Belum Input Data di Reksadana samsek anjayyy, Sebaiknya jangan Gegabah'
+                buttonlabel='Create New Reksadana'
+                redirectTo='portofolio/reksadana/add' />
         )
     }
 
