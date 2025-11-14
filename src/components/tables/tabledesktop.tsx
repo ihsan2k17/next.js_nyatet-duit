@@ -1,9 +1,8 @@
 "use client"
 
 import React, {useEffect, useState } from 'react'
-import Dropdown from '../filters/dropdowntable';
 import { Search } from '../filters/search';
-import { ColumnDef, ColumnFiltersState, flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, SortingState, Table, useReactTable } from '@tanstack/react-table';
+import { ColumnDef, ColumnFiltersState, flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, SortingState, useReactTable } from '@tanstack/react-table';
 import { FiChevronDown, FiChevronLeft, FiChevronRight, FiChevronsLeft, FiChevronsRight, FiChevronUp } from 'react-icons/fi';
 import DropdownTable from '../filters/dropdowntable';
 

@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { FaRegCalendarAlt } from "react-icons/fa";
+import { FaCalendarAlt } from "react-icons/fa";
+import { IoMdArrowDropdown } from "react-icons/io";
 
 type DatePickerFieldProps = {
   label?: string;
@@ -9,7 +10,8 @@ type DatePickerFieldProps = {
   onChange: (date: Date) => void;
   placeholder?: string;
   className?: string;
-  formatDate?: (date: Date | null) => string; // ✨ custom format function
+  formatDate?: (date: Date | null) => string;
+  width?: string
 };
 
 export default function DatePickerField({
@@ -18,39 +20,62 @@ export default function DatePickerField({
   onChange,
   placeholder = "Select date",
   className = "",
-  formatDate, // <— ambil dari props
+  width,
+  formatDate,
 }: DatePickerFieldProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [popupPosition, setPopupPosition] = useState<"top" | "bottom">("bottom");
   const [align, setAlign] = useState<"left" | "right">("left");
   const containerRef = useRef<HTMLDivElement>(null);
-
+  const [openMonth, setOpenMonth] = React.useState(false);
+  const [openYear, setOpenYear] = React.useState(false);
   const days = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 
-  // 🔁 Auto positioning (ASP.NET style)
+  // 🔁 Auto positioning
   useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest(".datepicker-container")) {
+        setIsOpen(false)
+        setOpenMonth(false)
+        setOpenYear(false)  
+      };
+    };
     if (isOpen && containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect();
       const spaceBelow = window.innerHeight - rect.bottom;
       const spaceAbove = rect.top;
       const spaceRight = window.innerWidth - rect.right;
       const spaceLeft = rect.left;
-
+      document.addEventListener("mousedown", handleClickOutside);
       setPopupPosition(spaceBelow < 300 && spaceAbove > spaceBelow ? "top" : "bottom");
       setAlign(spaceRight < 300 && spaceLeft > spaceRight ? "right" : "left");
+      if (value) {
+        setCurrentMonth(new Date(value.getFullYear(), value.getMonth(), 1));
+      } else {
+        const today = new Date();
+        setCurrentMonth(new Date(today.getFullYear(), today.getMonth(), 1));
+      }
     }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
 
   const startOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
   const endOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
   const startDay = startOfMonth.getDay();
-  const daysInMonth = Array.from({ length: endOfMonth.getDate() }, (_, i) =>
-    new Date(currentMonth.getFullYear(), currentMonth.getMonth(), i + 1)
-  );
+
+  const daysInMonth= Array.from({ length: endOfMonth.getDate() }, (_, i) => {
+    const d = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), i + 1);
+    d.setHours(12, 0, 0, 0); // ✅ set jam ke tengah hari
+    return d;
+  });
+
 
   const handleSelectDate = (date: Date) => {
-    onChange(date);
+    const safedate = new Date(date)
+    safedate.setHours(12,0,0,0);
+    onChange(safedate);
     setIsOpen(false);
   };
 
@@ -59,7 +84,17 @@ export default function DatePickerField({
   const nextMonth = () =>
     setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1));
 
-  // ✨ Default formatter (kalau user gak kasih)
+  // Dropdown bulan & tahun
+  const months = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+  ];
+
+  const currentYear = new Date().getFullYear();
+  const startYear = currentYear - 100;
+  const endYear = currentYear + 10;
+  const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => endYear - i);
+
   const defaultFormatDate = (date: Date | null) =>
     date
       ? date.toLocaleDateString("id-ID", {
@@ -70,48 +105,138 @@ export default function DatePickerField({
       : "";
 
   return (
-    <div ref={containerRef} className={`relative ${className}`}>
+    <div ref={containerRef} className={`relative ${width || "w-full"} datepicker-container`}>
       {label && <label className="block text-sm font-medium mb-1">{label}</label>}
 
-      {/* Input with Icon */}
-      <div
+      {/* Input Field */}
+      <button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="relative gap-1 w-full px-3 py-2 border rounded-md cursor-pointer bg-white hover:border-blue-400 focus:ring-2 focus:ring-blue-300 transition flex items-center justify-between"
+        className={`
+        flex items-center justify-between w-full border rounded-xl px-3 py-2
+        text-sm font-medium shadow-sm hover:border-button-primary
+        transition-all duration-200 focus:ring-2 focus:ring-button-secondary cursor-pointer`}
       >
-        {/* 📆 Icon from react-icons */}
-        <FaRegCalendarAlt
-            size={18}
-            className={`text-indigo-400 transition duration-150 ${
+        <FaCalendarAlt
+          size={16}
+          className={`text-gray-800 transition duration-150 ${
             isOpen ? "text-blue-400 rotate-6" : "hover:text-blue-400"
-            }`}
+          }`}
         />
-        <span className="truncate text-sm">
-          {value
-            ? formatDate
-              ? formatDate(value)
-              : defaultFormatDate(value)
-            : <span className="text-indigo-400">{placeholder}</span>}
+        <span className={`leading-none relative p-2 truncate text-center -top-[2px]
+          ${value ? "font-semibold":"font-medium"}`}>
+          {value ? 
+            formatDate ? 
+              formatDate(value) : defaultFormatDate(value)
+            : <span className="text-button-primary">{placeholder}</span>}
         </span>
-
-      </div>
+      </button>
 
       {/* Popup */}
       {isOpen && (
         <div
-          className={`absolute z-50 bg-white border rounded-md shadow-lg p-3 w-64
+          className={`
+            absolute z-50 bg-white border border-black/10 rounded-xl shadow-lg p-3 w-64
+            transition-all duration-200 
+            ease-out origin-top
+            ${isOpen ? "opacity-100 scale-100 translate-y-0"
+              : "opacity-0 scale-95 -translate-y-1 pointer-events-none"}
             ${popupPosition === "bottom" ? "top-full mt-2" : "bottom-full mb-2"}
             ${align === "right" ? "right-0" : "left-0"}`}
         >
-          {/* Header */}
-          <div className="flex justify-between items-center mb-2">
-            <button onClick={prevMonth} className="px-2 py-1 hover:bg-gray-100 rounded">‹</button>
-            <span className="font-medium">
-              {currentMonth.toLocaleDateString("en-US", { month: "long", year: "numeric" })}
-            </span>
-            <button onClick={nextMonth} className="px-2 py-1 hover:bg-gray-100 rounded">›</button>
+          {/* Header with dropdowns */}
+          <div className="flex items-center justify-between mb-2 gap-2">
+            <button onClick={prevMonth} className="hover:bg-gray-100 rounded">‹</button>
+            {/* Month (custom dropdown) */}
+              <div className="relative w-1/2">
+                <button
+                  onClick={() => {
+                    setOpenMonth((prev) => !prev)
+                    if(openYear) {
+                      setOpenYear(!openYear)
+                    }
+                  }}
+                  className={`
+                    w-full 
+                    border 
+                    border-gray-300 
+                    rounded-lg 
+                    px-3 py-[9px] 
+                    text-sm 
+                    gap-1
+                    bg-white flex justify-between items-center cursor-pointer hover:bg-gray-50`}
+                >
+                  {months[currentMonth.getMonth()]}
+                  <IoMdArrowDropdown className="text-gray-600" />
+                </button>
+
+                {openMonth && (
+                  <div
+                    className="absolute z-20 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-40 overflow-y-auto"
+                  >
+                    {months.map((m, i) => (
+                      <div
+                        key={m}
+                        onClick={() => {
+                          setCurrentMonth(new Date(currentMonth.getFullYear(), i, 1));
+                          setOpenMonth(false);
+                        }}
+                        className={`px-3 py-2 text-sm cursor-pointer hover:bg-blue-100 ${
+                          currentMonth.getMonth() === i ? "bg-indigo-500 text-white" : "text-gray-700"
+                        }`}
+                      >
+                        {m}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+              {/* Years */}
+              <div className={`relative f-1/2`}>
+                <button
+                  onClick={() => {
+                    setOpenYear((prev) => !prev)
+                    if(openMonth) {
+                      setOpenMonth(!openMonth)
+                    }
+                  }}
+                  className={`
+                    w-full 
+                    border 
+                    border-gray-300 
+                    gap-1
+                    rounded-lg 
+                    px-3 py-[9px] text-sm bg-white 
+                    flex justify-between items-center cursor-pointer hover:bg-gray-50`}   
+                >
+                  {currentMonth.getFullYear()}
+                  <IoMdArrowDropdown className="text-gray-600" />
+                </button>
+                {openYear && (
+                  <div
+                    className="absolute z-20 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-40 overflow-y-auto"
+                  >
+                    {years.map((y) => (
+                      <div
+                        key={y}
+                        onClick={() => {
+                          setCurrentMonth(new Date(y, currentMonth.getMonth(), 1));
+                          setOpenYear(false);
+                        }}
+                        className={`px-2 py-1 text-sm cursor-pointer hover:bg-blue-100 ${
+                          currentMonth.getFullYear() === y ? "bg-indigo-500 text-white" : ""
+                        }`}
+                      >
+                        {y}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            <button onClick={nextMonth} className="hover:bg-gray-100 rounded">›</button>
           </div>
 
-          {/* Days */}
+          {/* Days header */}
           <div className="grid grid-cols-7 text-center text-xs font-semibold mb-1">
             {days.map((d) => <div key={d}>{d}</div>)}
           </div>
@@ -123,12 +248,18 @@ export default function DatePickerField({
             ))}
             {daysInMonth.map((date) => {
               const isSelected = value && date.toDateString() === value.toDateString();
+              const today = new Date();
+              const isToday = 
+                date.getDate() === today.getDate() &&
+                date.getMonth() === today.getMonth() &&
+                date.getFullYear() === today.getFullYear()
+
               return (
                 <button
                   key={date.toISOString()}
                   onClick={() => handleSelectDate(date)}
                   className={`py-1 rounded-md text-sm transition ${
-                    isSelected ? "bg-blue-500 text-white" : "hover:bg-blue-100"
+                    isSelected ? "bg-indigo-500 text-white" : !value && isToday ? "bg-indigo-500 text-white" : "hover:bg-blue-100"
                   }`}
                 >
                   {date.getDate()}

@@ -58,22 +58,22 @@ const Dropdown = <T,>({
                 type="button"
                 onClick={() => setOpen((prev) => !prev)}
                 className="flex items-center justify-between w-full border rounded-xl px-3 py-2
-                        text-sm font-medium shadow-sm bg-white hover:border-indigo-400
-                        transition-all duration-200 focus:ring-2 focus:ring-indigo-400 cursor-pointer"
+                        text-sm font-medium shadow-sm hover:border-button-primary
+                        transition-all duration-200 focus:ring-2 focus:ring-button-secondary cursor-pointer"
             >
-                <span className="leading-none relative p-2 truncate text-center -top-[2px]">
-                    {selectedOption ? (
-                        String(selectedOption[textField])
-                    ) : (
-                        <span className="text-indigo-400">{placeholder}</span>
-                    )}  
-                </span>
                 <motion.div
                     animate={{ rotate: open ? 180 : 0 }}
                     transition={{ duration: 0.25 }}
                 >
                     <FiChevronDown size={18} className="text-gray-600" />
                 </motion.div>
+                <span className="leading-none relative p-2 truncate text-center -top-[2px]">
+                    {selectedOption ? (
+                        String(selectedOption[textField])
+                    ) : (
+                        <span className="text-button-primary">{placeholder}</span>
+                    )}  
+                </span>
             </button>
 
             {/* DROPDOWN LIST */}
@@ -95,7 +95,7 @@ const Dropdown = <T,>({
                             onChange(opt[valueField] as string | number, opt);
                             setOpen(false);
                         }}
-                        className={`px-3 py-2 text-sm text-center transition-colors duration-150 
+                        className={`px-3 py-2 text-sm text-start transition-colors duration-150 
                             ${
                             opt[valueField]?.toString() === value?.toString()
                                 ? "bg-indigo-100 text-indigo-600 font-semibold"

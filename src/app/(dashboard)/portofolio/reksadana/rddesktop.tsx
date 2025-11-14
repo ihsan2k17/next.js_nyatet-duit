@@ -71,11 +71,11 @@ const ReksadanaDesktop = () => {
             accessorKey: "nama",
             cell: ({ getValue }) => (
                 <div className="flex items-center gap-2">
-                <div className="h-8 w-8 rounded-full bg-button-secondary 
-                flex items-center justify-center text-white font-bold text-sm">
-                    {(getValue() as string)?.charAt(0).toUpperCase()}
-                </div>
-                <span className="font-medium text-gray-800">{getValue() as string}</span>
+                    <div className="h-8 w-8 rounded-full bg-button-secondary 
+                        flex items-center justify-center text-white font-bold text-sm">
+                        {(getValue() as string)?.charAt(0).toUpperCase()}
+                    </div>
+                    <span className="font-medium text-gray-800">{getValue() as string}</span>
                 </div>
             ),
             },
@@ -167,7 +167,7 @@ const ReksadanaDesktop = () => {
     useEffect(() => {
         const loadData = async () => {
         const result = await fetchDataReksadana(setError, setLoading)
-        setData(result)
+            setData(result)
         }
         loadData()
     }, [])
@@ -198,7 +198,7 @@ const ReksadanaDesktop = () => {
     }
 
     return (
-        <div className={'p-2'}>
+        <div className={`p-2 ${loading ? "cursor-wait":"cursor-auto"}`}>
             <div className="flex flex-col justify-center items-start mb-4 gap-2">
                 <h2 className="text-lg font-semibold text-gray-800">
                     Data Portfolio Reksadana
@@ -206,7 +206,11 @@ const ReksadanaDesktop = () => {
                 <button className={`flex flex-row gap-4 justify-center items-center 
                     bg-button-primary p-2.5 px-5 rounded-2xl cursor-pointer
                     text-sm font-bold text-white`}>
-                    <span>
+                    <span 
+                        onClick={() => {
+                            setLoading(true)
+                            router.push(`/portofolio/reksadana/add`)
+                        }}>
                         Create Data 
                     </span>
                     <FaPlus /> 
