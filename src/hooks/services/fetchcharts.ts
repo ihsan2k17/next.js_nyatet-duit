@@ -5,7 +5,6 @@ import { Dispatch, SetStateAction } from "react";
 export const fetchDatacharts = async (
     setalert: Dispatch<SetStateAction<string>>,
     setLoading: Dispatch<SetStateAction<boolean>>
-
 ) => {
     try {
         setLoading(true)
@@ -22,7 +21,6 @@ export const fetchDatacharts = async (
         }
     }
 }
-
 // Transform raw API data → bentuk sesuai untuk Recharts
 // export const transformData = (raw: ChartData[]) :TransformedData[] => {
 //     const grouped: Record<string, TransformedData> = {};

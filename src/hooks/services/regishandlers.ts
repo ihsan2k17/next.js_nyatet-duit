@@ -27,12 +27,11 @@ export const handleRegister = async (
       setAlertMessage(res.data.message);
     }
   } catch (error) {
+    setAlertErrorLogin(true)
     if(axios.isAxiosError(error) && error.response) {
-      setAlertErrorLogin(true)
       setLoading(false)
       setAlertErrorMessage(error.response.data.message)
     } else {
-      setAlertErrorLogin(true)
       setLoading(false)
       setAlertErrorMessage("Server Error, coba lagi nanti brokk!!")
     }

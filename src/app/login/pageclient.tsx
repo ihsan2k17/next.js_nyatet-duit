@@ -48,30 +48,30 @@ const LoginPageClient = () => {
   return isMobile ?
     <LoginMobile 
       handleLogin={() => 
-        handleLogin(username, password, setAlertLogin, setAlertMessage,setLoading)} 
+        handleLogin(username, password, setAlertLogin, setAlertErrorLogin, setAlertMessage,setLoading)} 
         handleGoogleLogin={googleLogin}
-      handleRegister={() => handleRegister(
+        handleRegister={() => handleRegister(
         setAlertRegis, setAlertMessage,setAlertErrorLogin,setAlertErrorMessage,
         username,password,name,email, setLoading)} 
-      handleGoogleRegis={googleRegis}
-      name={name} setName={setName}
-      username={username} setUsername={setUsername}
-      email={email} setEmail={setEmail}
-      password={password} setPassword={setPassword}
-      rememberMe={remeberMe} setRememberMe={setRememberMe}
-      modalLogin={modalLogin} setModalLogin={setModalLogin}
-      modalRegister={modalRegister} setModalRegister={setModalRegister}
-      alertLogin={alertLogin} setAlertLogin={setAlertLogin}
-      alertErrorLogin={alertErrorLogin} setAlertErrorLogin={setAlertErrorLogin}
-      alertMessage={alertMessage} alertErrorMessage={alertErrorMessage} 
-      handleNavigation={handleNav} 
-      alertRegis={alertRegis} setAlertRegis={setAlertRegis}/> : 
-    <div className={`${loading? "cursor-wait":"cursor-auto"}`}>
+        handleGoogleRegis={googleRegis}
+        name={name} setName={setName}
+        username={username} setUsername={setUsername}
+        email={email} setEmail={setEmail}
+        password={password} setPassword={setPassword}
+        rememberMe={remeberMe} setRememberMe={setRememberMe}
+        modalLogin={modalLogin} setModalLogin={setModalLogin}
+        modalRegister={modalRegister} setModalRegister={setModalRegister}
+        alertLogin={alertLogin} setAlertLogin={setAlertLogin}
+        alertErrorLogin={alertErrorLogin} setAlertErrorLogin={setAlertErrorLogin}
+        alertMessage={alertMessage} alertErrorMessage={alertErrorMessage} 
+        handleNavigation={handleNav} 
+        alertRegis={alertRegis} setAlertRegis={setAlertRegis}/> : 
+        <div className={`${loading? "cursor-wait":"cursor-auto"}`}>
       <LoginDesktop 
-        handleLogin={() => handleLogin(username, password, setAlertLogin, setAlertMessage, setLoading)} handleLoginGoogle={googleLogin} 
+        handleLogin={() => handleLogin(username, password, setAlertLogin, setAlertErrorLogin, setAlertMessage, setLoading)} handleLoginGoogle={googleLogin} 
         handleRegister={()=> handleRegister(
           setAlertRegis,setAlertMessage, setAlertErrorLogin,setAlertErrorMessage,
-          username,password,name,email, setLoading)} 
+        username,password,name,email, setLoading)} 
         handleRegisGoogle={googleRegis}
         username={username} setUsername={setUsername} 
         password={password} setPassword={setPassword} 

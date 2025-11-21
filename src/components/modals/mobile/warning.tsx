@@ -42,7 +42,7 @@ const WarningMobile = ({show, onClose, onConfirm, Message, title, confirmButton,
             </h2>
 
             {/* Message */}
-            <p className="text-button-primary text-center leading-relaxed text-sm">
+            <p className="text-yellow-800 text-center leading-relaxed text-sm">
               {Message}
             </p>
 

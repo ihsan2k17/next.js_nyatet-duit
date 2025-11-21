@@ -1,7 +1,11 @@
 'use client'
 import Attentions from '@/components/modals/attention'
+import Error from '@/components/modals/error'
 import AttentionMobile from '@/components/modals/mobile/attention'
+import ErrorMobile from '@/components/modals/mobile/error'
+import SuccessMobile from '@/components/modals/mobile/success'
 import WarningMobile from '@/components/modals/mobile/warning'
+import Success from '@/components/modals/success'
 import Warnings from '@/components/modals/warning'
 import useIsMobile from '@/hooks/ismobile'
 import React, { useState } from 'react'
@@ -12,9 +16,27 @@ const CekModalClient = () => {
     const [pButton, setPButton] = useState('')
     const [rejectButton, setRejectButton] = useState('')
     const [title, setTitle] = useState('')
-    const [modalType, setModalType] = useState<"attention" | "warning" | null>(null) // << tipe modal
+    const [modalType, setModalType] = useState<"attention" | "warning" | "success"| 'error'| null>(null) // << tipe modal
 
     const useMobile = useIsMobile()
+
+    const openSuccess = () => {
+        setTitle("Success!!!")
+        setMessage("Data lu berhasil nambah nihhh.")
+        setModalType("success")
+        setPButton("Ok")
+        //setRejectButton("Cancel")
+        setIsOpen(true)
+    }
+
+    const openError = () => {
+        setTitle("Error!!!")
+        setMessage("error anjay")
+        setModalType("error")
+        setPButton("Ok")
+        //setRejectButton("Cancel")
+        setIsOpen(true)
+    }
 
     const openAttention = () => {
         setTitle("Attention!!!")
@@ -54,6 +76,18 @@ const CekModalClient = () => {
         >
             Buka Warning
         </button>
+
+        <button 
+            onClick={openSuccess}
+            className='px-5 py-2 rounded-xl bg-emerald-500 text-white font-semibold hover:bg-yellow-600 transition'>
+            buka Sukses
+        </button>
+
+        <button 
+            onClick={openError}
+            className='px-5 py-2 rounded-xl bg-rose-500 text-white font-semibold hover:bg-yellow-600 transition'>
+            buka Error
+        </button>
         {!useMobile ? (
             <>
             {modalType === "attention" && (
@@ -68,12 +102,32 @@ const CekModalClient = () => {
             )}
             {modalType === "warning" && (
                 <Warnings
-                show={isOpen}
-                onClose={handleClose}
-                onConfirm={handleClose}
-                Message={message}
-                confirmButton={pButton}
-                title={title}
+                    show={isOpen}
+                    onClose={handleClose}
+                    onConfirm={handleClose}
+                    Message={message}
+                    confirmButton={pButton}
+                    title={title}
+                />
+            )}
+            {modalType === 'success' && (
+                <Success
+                    show={isOpen}
+                    onClose={handleClose}
+                    onConfirm={handleClose}
+                    Message={message}
+                    pbutton={pButton}
+                    title={title}
+                />
+            )}
+            {modalType === 'error' && (
+                <Error
+                    show={isOpen}
+                    onClose={handleClose}
+                    onConfirm={handleClose}
+                    Message={message}
+                    pbutton={pButton}
+                    title={title}
                 />
             )}
             </>
@@ -86,8 +140,8 @@ const CekModalClient = () => {
                     onConfirm={handleClose}
                     Message={message}
                     title={title}
-                    pButton={pButton}
-                    denyButton={rejectButton}
+                    allowNameButton={pButton}
+                    denyNameButton={rejectButton}
                 />
             )}
             {modalType === "warning" && (
@@ -99,6 +153,25 @@ const CekModalClient = () => {
                 confirmButton={pButton}
                 title={title}
                 denyButton={rejectButton}
+                />
+            )}
+            {modalType === 'success' && (
+                <SuccessMobile 
+                    show={isOpen}
+                    onConfirm={handleClose}
+                    Message={message}
+                    title={title}
+                    confirmTitleButton={pButton}
+                />
+            )}
+
+            {modalType === 'error' && (
+                <ErrorMobile 
+                    show={isOpen}
+                    onConfirm={handleClose}
+                    Message={message}
+                    title={title}
+                    confirmTitleButton={pButton}
                 />
             )}
             </>

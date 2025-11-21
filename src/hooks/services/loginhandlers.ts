@@ -6,6 +6,7 @@ export const handleLogin = async (
     username: string,
     password: string,
     setAlertLogin: Dispatch<SetStateAction<boolean>>,
+    setAlertErrorLogin: Dispatch<SetStateAction<boolean>>,
     setAlertMessage: Dispatch<SetStateAction<string>>,
     setLoading: Dispatch<SetStateAction<boolean>>
 ) => {
@@ -19,12 +20,11 @@ export const handleLogin = async (
       setLoading(false)
       setAlertMessage(res.data.message);
     } catch(error: unknown) {
+      setAlertErrorLogin(true)
       if (axios.isAxiosError(error) && error.response) {
-        setAlertLogin(true)
         setLoading(false)
         setAlertMessage(error.response.data.message)
       } else {
-        setAlertLogin(true)
         setLoading(false)
         setAlertMessage("Server error, coba lagi nanti")
       }
@@ -67,12 +67,11 @@ export const handleGoogleLogin = (
               setLoading(false)
               setAlertMessage(res.data.message);
             } catch (error: unknown) {
+              setAlertErrorLogin(true)
               if (axios.isAxiosError(error) && error.response) {
-                setAlertLogin(true)
                 setLoading(false)
                 setAlertMessage(error.response.data.message)
               } else {
-                setAlertLogin(true)
                 setLoading(false)
                 setAlertMessage("Server error, coba lagi nanti")
               }

@@ -1,7 +1,7 @@
 "use client"
 import { AnimatePresence, motion } from "framer-motion"
 import React from "react"
-import { BsExclamationTriangle } from "react-icons/bs"
+import { BsFillInfoCircleFill } from "react-icons/bs"
 
 interface AttentionsProps {
   show: boolean
@@ -9,11 +9,11 @@ interface AttentionsProps {
   onConfirm: () => void
   Message: string,
   title: string,
-  pButton: string,
-  denyButton: string
+  allowNameButton: string,
+  denyNameButton: string
 }
 
-const AttentionMobile = ({ show, onClose, onConfirm, Message, title,pButton, denyButton }: AttentionsProps) => {
+const AttentionMobile = ({ show, onClose, onConfirm, Message, title,allowNameButton, denyNameButton }: AttentionsProps) => {
   return (
     <AnimatePresence>
       {show && (
@@ -35,7 +35,7 @@ const AttentionMobile = ({ show, onClose, onConfirm, Message, title,pButton, den
 
             {/* Icon */}
             <div className="flex justify-center mb-5">
-              <BsExclamationTriangle className="w-12 h-12 text-button-primary" />
+              <BsFillInfoCircleFill className="w-12 h-12 text-button-primary" />
             </div>
 
             {/* Title */}
@@ -56,14 +56,14 @@ const AttentionMobile = ({ show, onClose, onConfirm, Message, title,pButton, den
                 className={`w-full py-3 rounded-xl bg-button-primary text-white 
                   font-medium hover:bg-white hover:text-button-primary transition`}
               >
-                {pButton}
+                {allowNameButton}
               </motion.button>
               <motion.button
                 whileTap={{ scale: 0.97 }}
                 onClick={onClose}
                 className="w-full py-3 rounded-xl border-2 border-button-primary text-gray-600 hover:bg-gray-100 transition"
               >
-                {denyButton}
+                {denyNameButton}
               </motion.button>
             </div>
           </motion.div>

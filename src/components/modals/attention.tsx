@@ -1,7 +1,7 @@
 'use client'
 import { AnimatePresence, motion } from 'framer-motion'
 import React from 'react'
-import { BsExclamationTriangleFill } from 'react-icons/bs'
+import { BsFillInfoCircleFill } from 'react-icons/bs'
 import { IoClose } from 'react-icons/io5'
 
 interface AttentionsProps {
@@ -49,7 +49,7 @@ const Attentions = ({ show, onClose, onConfirm, Message, pbutton, title }: Atten
               transition={{ type: "spring", stiffness: 300, damping: 15 }}
               className="flex justify-center mb-4"
             >
-              <BsExclamationTriangleFill className="w-20 h-20 text-button-primary drop-shadow-lg" />
+              <BsFillInfoCircleFill className="w-20 h-20 text-button-primary drop-shadow-lg" />
             </motion.div>
 
             {/* Title */}

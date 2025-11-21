@@ -1,6 +1,7 @@
 'use client'
 import SideBar from '@/components/bars/sidebar'
 import Breadcrumbs from '@/components/breadcrumb'
+import Success from '@/components/modals/success'
 import React, { Dispatch, SetStateAction } from 'react'
 
 interface ILayout {
@@ -41,19 +42,31 @@ const LayoutDesktop = ({
                     {children}
                 </main>
                 {alertLogout && (
-                    <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
-                        <div className="bg-white p-6 rounded shadow-md max-w-sm text-center">
-                            <p className="text-lg font-medium">{alertMessage}</p>
-                            <button
-                                onClick={() => {
-                                    setAlertLogout(false)
-                                    handleNav()}}
-                                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                            >
-                                OK
-                            </button>
-                        </div>
-                    </div>
+                    // <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
+                    //     <div className="bg-white p-6 rounded shadow-md max-w-sm text-center">
+                    //         <p className="text-lg font-medium">{alertMessage}</p>
+                    //         <button
+                    //             onClick={() => {
+                    //                 setAlertLogout(false)
+                    //                 handleNav()}}
+                    //             className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                    //         >
+                    //             OK
+                    //         </button>
+                    //     </div>
+                    // </div>
+                    <Success 
+                        show={alertLogout} 
+                        onClose={() => {
+                            setAlertLogout(false) 
+                            handleNav()
+                        }} 
+                        onConfirm={() => {
+                            setAlertLogout(false)
+                            handleNav()
+                        }} 
+                        Message={'Jangan lupa Login lagi ya Brokkk! 👌'} 
+                        pbutton={'Okeee!!'} title={'Logout Success'} />
                 )}
             </div>
         </div>

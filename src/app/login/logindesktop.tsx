@@ -4,6 +4,10 @@ import bgimg from "../../../public/bg.jpg";
 import paperplane from "../../../public/paper-plane-freepik.png";
 import CardRegisterDesktop from "@/components/cards/cdregister";
 import CardLoginDesktop from "@/components/cards/cdlogin";
+import Success from "@/components/modals/success";
+import { capitalize } from "@/hooks/iscapitalize";
+import Error from "@/components/modals/error";
+import { PiSmileyWinkFill } from "react-icons/pi";
 
 interface ILoginDesktop {
     handleLogin: () => void,
@@ -33,7 +37,6 @@ const LoginDesktop = ({
     alertLogin, setAlertLogin,
     alertErrorLogin, setAlertErrorLogin,
     alertRegis, setAlertRegis,
-    alertMessage, alertErrorMessage,
     handleNavigation}: ILoginDesktop) => {
 
     return (
@@ -64,7 +67,7 @@ const LoginDesktop = ({
                 password={password} setPassword={setPassword}
                 name={name} setName={setName}
                 email={email} setEmail={setEmail}/>)}
-            {alertLogin && (
+            {/* {alertLogin && (
                 <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
                     <div className="bg-white p-6 rounded shadow-md max-w-sm text-center">
                     <p className="text-lg font-medium">{alertMessage}</p>
@@ -78,8 +81,23 @@ const LoginDesktop = ({
                     </button>
                     </div>
                 </div>
+            )} */}
+            {alertLogin && (
+                <Success 
+                    show={alertLogin} 
+                    onClose={() => {
+                        setAlertLogin(false)
+                        localStorage.removeItem("STKNXDCD")
+                        localStorage.removeItem("STKNXUSR")}} 
+                    onConfirm={() => {
+                        setAlertLogin(false)
+                        handleNavigation()
+                    }} Message={`Selamat datang kembali ${capitalize(username)} 😎, 
+                        pasti abis Masukin duit tabungan/portfolio di real life kan wkwkwk!!!`} 
+                    pbutton={"Okeee!!"} 
+                    title={"Login Success"} />
             )}
-            {alertErrorLogin && (
+            {/* {alertErrorLogin && (
                 <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
                     <div className="bg-white p-6 rounded shadow-md max-w-sm text-center">
                     <p className="text-lg font-medium">{alertErrorMessage}</p>
@@ -91,8 +109,17 @@ const LoginDesktop = ({
                     </button>
                     </div>
                 </div>
+            )} */}
+            {alertErrorLogin && (
+                <Error 
+                    show={alertErrorLogin} 
+                    onClose={() => setAlertErrorLogin(false)} 
+                    onConfirm={() => setAlertErrorLogin(false)} 
+                    Message={`Lu salah masukin Username '${username}', atau salah masukin Password 😒`} 
+                    pbutton={"Back"} 
+                    title={"Login is Wrong!"} />
             )}
-            {alertRegis && (
+            {/* {alertRegis && (
                 <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
                     <div className="bg-white p-6 rounded shadow-md max-w-sm text-center">
                     <p className="text-lg font-medium">{alertMessage}</p>
@@ -107,6 +134,19 @@ const LoginDesktop = ({
                     </button>
                     </div>
                 </div>
+            )} */}
+            {alertRegis && (
+                <Success 
+                    show={alertRegis} 
+                    onClose={() => {
+                        setAlertRegis(false)
+                    }} 
+                    onConfirm={() => {
+                        setAlertRegis(false)
+                        setModalRegister(false)
+                    }} 
+                    Message={`Anjay Subsrcibe baruu!! 😄. Selamat datang di sistem kita brokkk. ${username}`} 
+                    pbutton={"Yuk Login!!"} title={"Register Success"} />
             )}
         </div>
     )

@@ -6,6 +6,9 @@ import paperplane from "../../../public/paper-plane-freepik.png";
 import LoginCard from "@/components/cards/cmlogin";
 import { MdKeyboardBackspace } from "react-icons/md";
 import RegisCard from "@/components/cards/cmregister";
+import SuccessMobile from "@/components/modals/mobile/success";
+import { capitalize } from "@/hooks/iscapitalize";
+import ErrorMobile from "@/components/modals/mobile/error";
 
 interface ILoginMobile {
     handleLogin: () => void,
@@ -88,7 +91,7 @@ const LoginMobile = ({
                 > register
                 </button>
             )}
-            {alertLogin && (
+            {/* {alertLogin && (
                 <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
                     <div className="bg-white p-6 rounded shadow-md max-w-sm text-center">
                     <p className="text-lg font-medium">{alertMessage}</p>
@@ -102,8 +105,20 @@ const LoginMobile = ({
                     </button>
                     </div>
                 </div>
+            )} */}
+            {alertLogin && (
+                <SuccessMobile 
+                    show={alertLogin} 
+                    onConfirm={() => {
+                        setAlertLogin(false)
+                        handleNavigation()
+                    }} 
+                    Message={`Selamat datang kembali ${capitalize(username)} 😎, 
+                        pasti abis Masukin duit tabungan/portfolio di real life kan wkwkwk!!!`} 
+                    title={"Login Success"} 
+                    confirmTitleButton={"Okeee!!"} />
             )}
-            {alertErrorLogin && (
+            {/* {alertErrorLogin && (
                 <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
                     <div className="bg-white p-6 rounded shadow-md max-w-sm text-center">
                     <p className="text-lg font-medium">{alertErrorMessage}</p>
@@ -116,8 +131,18 @@ const LoginMobile = ({
                     </button>
                     </div>
                 </div>
+            )} */}
+            {alertErrorLogin && (
+                <ErrorMobile 
+                    show={alertErrorLogin} 
+                    onConfirm={() => {
+                        setAlertErrorLogin(false)
+                    }} 
+                    Message={`Lu salah masukin Username '${username}', atau salah masukin Password 😒`} 
+                    title={"Login is Wrong!"} 
+                    confirmTitleButton={'Back'} />
             )}
-            {alertRegis && (
+            {/* {alertRegis && (
                 <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
                     <div className="bg-white p-6 rounded shadow-md max-w-sm text-center">
                     <p className="text-lg font-medium">{alertMessage}</p>
@@ -132,6 +157,18 @@ const LoginMobile = ({
                     </button>
                     </div>
                 </div>
+            )} */}
+            {alertRegis && (
+                <SuccessMobile 
+                    show={alertRegis} 
+                    onConfirm={() => {
+                        setAlertRegis(false)
+                        setModalLogin(true)
+                        setModalRegister(false)
+                    }} 
+                    Message={`Anjay Subsrcibe baruu!! 😄. Selamat datang di sistem kita brokkk. ${username}`} 
+                    title={"Register Success"} 
+                    confirmTitleButton={"Yuk Login!!"}/>
             )}
             <LoginCard
                 isLogin={modalLogin} 

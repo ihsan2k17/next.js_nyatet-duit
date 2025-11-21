@@ -123,15 +123,6 @@ const MobileDatePicker = ({
                     ${className}
                     ${icon ? (iconPosition === "left" ? "pl-2" : "pr-2") : "px-3"}`}
             >
-                {/* flex items-center justify-between w-full border rounded-xl px-3 py-2
-                    text-sm font-medium shadow-sm hover:border-button-primary
-                    transition-all duration-200 focus:ring-2 focus:ring-button-secondary cursor-pointer */}
-                {/* <FaCalendarAlt
-                size={16}
-                className={`text-gray-800 transition duration-150 ${
-                    isOpen ? "text-blue-400 rotate-6" : "hover:text-blue-400"
-                }`}
-                /> */}
                 {icon && iconPosition === "left" && (
                     <div className={`${icon ? "flex flex-1":"flex"}items-center pointer-events-none text-gray-500`}>
                         {icon}
