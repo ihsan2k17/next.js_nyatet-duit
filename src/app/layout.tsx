@@ -48,6 +48,7 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
           ${pacifico.variable} 
           ${dancingScript.variable} antialiased`}
       >
+        <div id="dropdown-portal"></div>
         {children}
       </body>
     </html>

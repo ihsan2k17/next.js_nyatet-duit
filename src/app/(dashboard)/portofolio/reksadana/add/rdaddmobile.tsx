@@ -1,5 +1,4 @@
 'use client'
-import DatePickerField from '@/components/filters/datepicker'
 import MobileDatePicker from '@/components/ui/mobiledatepicker'
 import TextFields from '@/components/ui/textfields'
 import { useRouter } from 'next/navigation'
@@ -9,10 +8,7 @@ import { FaMoneyBill, FaMoneyBill1, FaRegCreditCard, FaUser } from 'react-icons/
 import UIMblDropdown from '@/components/ui/uimbldropdown'
 import { fetchDDLreksadana } from '@/hooks/services/fetchddlreksadana'
 import Loading40 from '@/components/animations/loading40'
-import { number } from 'framer-motion'
-import { GiConsoleController } from 'react-icons/gi'
 import { InsertDataRD } from '@/hooks/services/insertdatard'
-import ModalAction from '@/components/modals/action'
 import { IDFormatted } from '@/hooks/isformatted'
 import SuccessMobile from '@/components/modals/mobile/success'
 import ErrorMobile from '@/components/modals/mobile/error'
@@ -28,8 +24,6 @@ const RDAddMobile = () => {
     const [selectedTgl, setSelectedTgl] = useState<Date | null>(null)
     const [selectedPembelian, setSelectedPembelian] = useState<string|number>()
     const [loading, setLoading] = useState(false)
-    //const [ddlJenisTrans, setDDLJenisTrans] = useState([])
-    //const [selectedJenisTrans, setSelectedJenisTrans] = useState<string|number>()
     const [ddlRekRDN, setDDLRekRDN] = useState([])
     const [selectedRekRDN, setSelectedRekRDN] = useState<string|number>()
     const [selectedNoRekRDN, setSelectedNoRekRDN] = useState<string|number>("")
@@ -149,21 +143,6 @@ const RDAddMobile = () => {
                             shadow-[0_10px_15px_rgba(0,0,0,0.1),0_4px_6px_rgba(0,0,0,0.05)]
                             items-center'                    
                     />
-                    {/* <UIMblDropdown
-                        label='Jenis Transaksi'
-                        options={ddlJenisTrans}
-                        textField="Text"
-                        valueField="Value"
-                        value={selectedJenisTrans}
-                        onChange={(val) => {
-                            setSelectedJenisTrans(val)
-                        }}
-                        placeholder="Jenis" 
-                        className='flex flex-1 flex-row gap-3 rounded-xl border w-full
-                            border-gray-300 bg-white px-2 py-1 transition
-                            shadow-[0_10px_15px_rgba(0,0,0,0.1),0_4px_6px_rgba(0,0,0,0.05)]
-                            items-center'                    
-                    /> */}
                 </div>
                 {/* panell produk rd */}
                 <div className='flex flex-1 flex-col p-2 border rounded-xl items-center justify-center gap-3 pb-5'>
