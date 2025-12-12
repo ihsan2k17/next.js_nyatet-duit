@@ -108,7 +108,8 @@ const MobileDatePicker = ({
         >
             {/* Calendar header */}
             <div className="flex items-center justify-between mb-2 gap-2">
-                <button onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1))}>
+                <button 
+                    onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1))}>
                     ‹
                 </button>
 
@@ -221,13 +222,23 @@ const MobileDatePicker = ({
             <button
                 type="button"
                 onClick={() => setIsOpen(!isOpen)}
-                className={className}
+                className={`
+                    ${icon ? (iconPosition === "left" ? "pl-2" : "pr-2") : "px-3"}
+                    ${className}`}
             >
+                {/* ICON LEFT */}
+                {icon && iconPosition === "left" && (
+                    <span className="text-gray-600">{icon}</span>
+                )}
                 {value
                     ? formatDate
                         ? formatDate(value)
                         : defaultFormatDate(value)
                     : placeholder}
+                {/* ICON RIGHT */}
+                {icon && iconPosition === "right" && (
+                    <span className="text-gray-600">{icon}</span>
+                )}
             </button>
 
             {mounted && isOpen && createPortal(calendarPopup, document.body)}

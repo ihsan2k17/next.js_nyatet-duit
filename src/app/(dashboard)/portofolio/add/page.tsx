@@ -1,10 +1,19 @@
-import React from 'react'
-
+import Loading40 from '@/components/animations/loading40'
+import React, { Suspense } from 'react'
+import RDAddPortfolioClient from './rdaddclient'
+export const metadata = {
+  title: "Portfolio",
+  openGraph: {
+    title: "Portfolio | Add",
+    description: "Tambah Data Portfolio",
+    type:"website",
+  },
+}
 const AddPortfolio = () => {
     return (
-        <div>
-            + Add Portfolio nya di Sini brokk +
-        </div>
+        <Suspense fallback={<Loading40/>}>
+            <RDAddPortfolioClient/>
+        </Suspense>
     )
 }
 

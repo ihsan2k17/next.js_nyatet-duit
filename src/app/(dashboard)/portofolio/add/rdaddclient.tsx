@@ -1,10 +1,10 @@
 'use client'
 import useIsMobile from '@/hooks/ismobile'
 import React, { useEffect, useState } from 'react'
-import RDAddMobile from './rdaddmobile'
-import RDAddDesktop from './rdadddesktop'
+import RDAddPortfolioMobile from './rdaddmobile'
+import RDAddPortfolioDesktop from './rdadddesktop'
 
-const RDAddClient = () => {
+const RDAddPortfolioClient = () => {
     const isMobile = useIsMobile()
     const [loading, setLoading] = useState(false)
 
@@ -20,9 +20,9 @@ const RDAddClient = () => {
 
     return (
         <div className={`${loading ? "cursor-progress" : "cursor-auto"}`}>
-            {isMobile ? <RDAddMobile /> : <RDAddDesktop />}
+            {isMobile ? <RDAddPortfolioMobile /> : <RDAddPortfolioDesktop />}
         </div>
     )
 }
 
-export default RDAddClient
+export default RDAddPortfolioClient

@@ -43,6 +43,9 @@ export const InsertDataRD = async (
             type : type ?? null,
             idportfolio: idportfolio ?? null
         }
+        if(!nominaluang === null) {
+            setError(`Isi Duit nya dulu Brokkk`)
+        }
         const res = await axios.post("/api/portfolio/reksadana/add",
             payload,{withCredentials: true})
         setLoading(false)

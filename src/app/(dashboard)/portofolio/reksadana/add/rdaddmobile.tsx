@@ -33,7 +33,7 @@ const RDAddMobile = () => {
     const [error, setError] = useState('')
     const [modalOpen, setModalOpen] = useState(false)
     const [modalType, setModalType] = useState<"error" | "success" | null>(null)
-
+    
     const Pembelian = [
         { Value: "Pembelian", Text: "Pembelian" },
         { Value: "Penjualan", Text: "Penjualan" },
@@ -202,11 +202,11 @@ const RDAddMobile = () => {
                             flex flex-1 px-2 w-full py-1 
                             text-sm font-light justify-start 
                             items-start text-red-700 gap-1'>
-                            <p>Jika Portfolio lu belum ada, berarti buat dulu ya. </p>
-                            <span 
-                                onClick={() => {router.push(`/portofolio/add`)}}
-                                className={`underline underline-offset-4 italic`}
-                                >Create</span>
+                            <p>Kalo Portfolio lu mau nambah atau belum ada, berarti buat dulu ya. 
+                                <span 
+                                    onClick={() => {router.push(`/portofolio/add`)}}
+                                > <span className='underline underline-offset-4 italic'> Create</span></span>
+                            </p>
                         </div>
                     ):(<></>)}
                 </div>
@@ -228,7 +228,7 @@ const RDAddMobile = () => {
                             const norek =await getNorek(val)
                             setSelectedNoRekRDN(norek?.No_Rekening)
                         }}
-                        placeholder="Produk" 
+                        placeholder="Rekening Data Nasabah" 
                         className='flex flex-1 flex-row gap-3 rounded-xl border w-full
                             border-gray-300 bg-white px-2 py-1 transition
                             shadow-[0_10px_15px_rgba(0,0,0,0.1),0_4px_6px_rgba(0,0,0,0.05)]
@@ -251,6 +251,18 @@ const RDAddMobile = () => {
                             shadow-[0_10px_15px_rgba(0,0,0,0.1),0_4px_6px_rgba(0,0,0,0.05)]
                             items-center'
                     />
+                    {selectedNoRekRDN === "" ? (
+                        <div className='
+                            flex flex-1 w-full py-1 
+                            text-sm font-light justify-start 
+                            items-start text-red-700 gap-1'>
+                            <p>Kalo Rek lu mau nambah atau Blm punya, berarti buat dulu ya. 
+                                <span 
+                                //onClick={() => {router.push(`/portofolio/add`)}}
+                                > <span className={`underline underline-offset-4 italic cursor-pointer`}>Create</span></span>
+                            </p>
+                        </div>
+                    ):(<></>)}
                 </div> 
                 {/*  panel nilai transaksi */}
                 <div className='flex flex-1 flex-col p-2 border rounded-xl items-center justify-center gap-3 pb-5'>
@@ -259,6 +271,7 @@ const RDAddMobile = () => {
                     </label>
                     <TextFields
                         label="Nominal Uang"
+                        required={true}
                         name="nominaluang"
                         placeholder="Masukkan Nominal Uang"
                         value={IDFormatted(String(selectedduit))}
